@@ -1,4 +1,4 @@
-# 🤔 JSON Infer Type
+# 🤔 JSON Infer Types
 
 > Infer the types of JSON documents & values, with a large set of formats for strings
 
