@@ -1,19 +1,63 @@
-# Typescript Node Package Repository Template
+# 🤔 JSON Infer Type
 
-> Create a new repo from this template to get started creating a Typescript npm package
+> Infer the types of JSON documents & values, with a large set of formats for strings
 
-<!-- ![Coverage lines](./badges/badge-lines.svg) -->
-<!-- ![Tests](https://github.com/jsonhero-io/ts-node-package-template/actions/workflows/test.yml/badge.svg?branch=main) -->
-<!-- [![Downloads](https://img.shields.io/npm/dm/%40jsonhero%2Fts-node-package-template.svg)](https://npmjs.com/@jsonhero/ts-node-package-template) -->
-<!-- [![Install size](https://packagephobia.com/badge?p=%40jsonhero%2Fts-node-package-template)](https://packagephobia.com/result?p=@jsonhero/ts-node-package-template) -->
+![Coverage lines](./badges/badge-lines.svg)
+![Tests](https://github.com/jsonhero-io/json-infer-types/actions/workflows/test.yml/badge.svg?branch=main)
+[![Downloads](https://img.shields.io/npm/dm/%40jsonhero%2Fjson-infer-types.svg)](https://npmjs.com/@jsonhero/json-infer-types)
+[![Install size](https://packagephobia.com/badge?p=%40jsonhero%2Fjson-infer-types)](https://packagephobia.com/result?p=@jsonhero/json-infer-types)
 
-## Features
+## 🚀 Features
 
 - Written in typescript
-- Github workflows for running tests and publishing package to NPM on Github release
-- ts-node and ts-jest integration
-- Generate coverage badges
+- Infers types of values inside objects and arrays
+- Includes a large set of formats for strings
+  - Dates and times (and timestamps)
+  - Email addresses
+  - Currencies
+  - Countries
+  - Top-Level Domains
+  - IP Addresses
+  - Languages
+  - Phone Numbers
+  - URIs
+  - UUIDs
+  - Hostnames
 
-## Usage
+## 💻 Usage
 
-Create a new repository from this template on Github with the [following instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
+Install JSON Infer Types
+
+```bash
+$ npm install --save @jsonhero/json-infer-types
+```
+
+`inferType` takes any JSON value and returns a `JSONValueType` object:
+
+```js
+const { inferType } = require("@jsonhero/json-infer-types");
+
+inferType(123); // => { name: "int" }
+```
+
+The following basic types are supported:
+
+```js
+inferType(null); // => { name: "null" }
+inferType(true); // => { name: "bool" }
+inferType(123); // => { name: "int" }
+inferType(123.456); // => { name: "float" }
+inferType("hello world"); // => { name: "string" }
+```
+
+Objects have an additional `properties` property that infers its value types
+
+```js
+inferType({ foo: "bar" });
+```
+
+Will result in
+
+```json
+{ "name": "object", "properties": { "foo": { "name": "string" } } }
+```

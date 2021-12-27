@@ -1,14 +1,14 @@
 {
-  "name": "@jsonhero/ts-node-package-template",
+  "name": "@jsonhero/json-infer-types",
   "version": "0.0.1",
-  "description": "A template for creating a new TypeScript package",
-  "homepage": "https://github.com/jsonhero-io/ts-node-package-template",
+  "description": "Infer the types of a JSON value",
+  "homepage": "https://github.com/jsonhero-io/json-infer-types",
   "bugs": {
-    "url": "https://github.com/jsonhero-io/ts-node-package-template/issues"
+    "url": "https://github.com/jsonhero-io/json-infer-types/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jsonhero-io/ts-node-package-template.git"
+    "url": "https://github.com/jsonhero-io/json-infer-types.git"
   },
   "exports": "./lib/index.js",
   "types": "lib/index.d.ts",
@@ -29,20 +29,35 @@
   "engines": {
     "node": "16"
   },
-  "keywords": [],
-  "author": "Author Name",
+  "keywords": [
+    "json",
+    "types",
+    "schema",
+    "generation"
+  ],
+  "author": "Eric Allam",
   "license": "MIT",
   "devDependencies": {
     "@tsconfig/node16": "^1.0.2",
     "@types/jest": "^27.0.2",
+    "@types/lodash.isequal": "^4.5.5",
+    "@types/lodash.uniqwith": "^4.5.6",
+    "@types/mime-types": "^2.1.1",
     "@types/node": "^16.11.7",
+    "@types/uuid": "^8.3.3",
     "jest": "^27.3.1",
     "jest-coverage-badges": "^1.1.2",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
   },
-  "dependencies": {},
+  "dependencies": {
+    "ip-address": "^8.1.0",
+    "lodash.isequal": "^4.5.0",
+    "lodash.uniqwith": "^4.5.0",
+    "mime-types": "^2.1.34",
+    "uuid": "^8.3.2"
+  },
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
