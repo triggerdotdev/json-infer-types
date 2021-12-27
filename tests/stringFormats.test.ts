@@ -1,4 +1,3 @@
-import { text } from "stream/consumers";
 import { inferType } from "../src";
 
 describe("rfc3339", () => {
@@ -504,6 +503,20 @@ describe("json", () => {
       name: "string",
       format: {
         name: "json",
+        variant: "ecma262",
+      },
+    });
+  });
+
+  test.each([
+    "{ foo: 1, }",
+    `{name:'string',format:{name: 0xdecaf, variant:.8675309}}`,
+  ])("%p should be inferred as a json string", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      format: {
+        name: "json",
+        variant: "json5",
       },
     });
   });

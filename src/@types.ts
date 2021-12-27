@@ -68,6 +68,7 @@ export type JSONFilesizeFormat = {
 
 export type JSONJSONFormat = {
   name: "json";
+  variant: "ecma262" | "json5";
 };
 
 export type JSONStringFormat =
