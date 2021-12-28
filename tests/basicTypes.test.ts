@@ -101,3 +101,23 @@ it("Should handle string formats inside objects inside arrays", () => {
     },
   });
 });
+
+it("should allow for shallow inference", () => {
+  expect(
+    inferType(
+      {
+        foo: [
+          {
+            ts: "2019-01-01T00:00:00.000Z",
+          },
+          {
+            ts: "2019-10-12T14:20:50.52+07:00",
+          },
+        ],
+      },
+      { shallow: true }
+    )
+  ).toEqual({
+    name: "object",
+  });
+});

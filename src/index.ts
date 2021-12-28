@@ -4,7 +4,16 @@ import { JSONValueType, JSONStringFormat } from "./@types";
 
 import * as formats from "./formats";
 
-export function inferType(value: any): JSONValueType {
+type InferTypeOptions = {
+  shallow?: boolean;
+};
+
+export function inferType(
+  value: any,
+  options?: InferTypeOptions
+): JSONValueType {
+  const opts = Object.assign({}, { shallow: false }, options);
+
   if (value === null) {
     return { name: "null" };
   }
@@ -27,7 +36,13 @@ export function inferType(value: any): JSONValueType {
 
   if (typeof value === "object") {
     if (Array.isArray(value)) {
-      const itemTypes = value.map(inferType);
+      if (opts.shallow) {
+        return {
+          name: "array",
+        };
+      }
+
+      const itemTypes = value.map((item) => inferType(item, opts));
       const uniqTypes = uniqWith(itemTypes, isEqual);
 
       if (uniqTypes.length === 1) {
@@ -40,6 +55,12 @@ export function inferType(value: any): JSONValueType {
       return {
         name: "array",
         items: uniqTypes,
+      };
+    }
+
+    if (opts.shallow) {
+      return {
+        name: "object",
       };
     }
 

@@ -110,12 +110,12 @@ export type JSONStringType = {
 
 export type JSONObjectType = {
   name: "object";
-  properties: Record<string, JSONValueType>;
+  properties?: Record<string, JSONValueType>;
 };
 
 export type JSONArrayType = {
   name: "array";
-  items: JSONValueType | JSONValueType[];
+  items?: JSONValueType | JSONValueType[];
 };
 
 export type JSONValueType =

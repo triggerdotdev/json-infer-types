@@ -138,6 +138,18 @@ Gives the result
 }
 ```
 
+If you don't want or need the `properties` or `items` inferred you can pass the `shallow: true` option to `inferType`
+
+```js
+inferType(
+  [
+    { id: "1", email: "eric@example.com" },
+    { id: "2", email: "matt@example.com" },
+  ],
+  { shallow: true }
+); // => { name: "array" }
+```
+
 ### Strings
 
 JSON Infer Types will also recognize certain string formats and include that information in the result, for example if the string is a `URI`:
