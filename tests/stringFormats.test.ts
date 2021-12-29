@@ -26,23 +26,19 @@ describe("rfc3339", () => {
     });
   });
 
-  test.each([
-    "2016-05",
-    "2016-05-25",
-    "+002016-05-25",
-    "2016-W21",
-    "2016-W21-3",
-    "2016-200",
-  ])("%p should be inferred as an rfc3339 date", (value) => {
-    expect(inferType(value)).toEqual({
-      name: "string",
-      format: {
-        name: "datetime",
-        parts: "date",
-        variant: "rfc3339",
-      },
-    });
-  });
+  test.each(["2016-05", "2016-05-25", "+002016-05-25", "2016-W21", "2016-W21-3", "2016-200"])(
+    "%p should be inferred as an rfc3339 date",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        format: {
+          name: "datetime",
+          parts: "date",
+          variant: "rfc3339",
+        },
+      });
+    },
+  );
 
   test.each(["09:24:15.123Z", "09:24:15", "09:24"])(
     "%p should be inferred as an rfc3339 time",
@@ -55,7 +51,7 @@ describe("rfc3339", () => {
           variant: "rfc3339",
         },
       });
-    }
+    },
   );
 });
 
@@ -95,34 +91,28 @@ describe("timestamps", () => {
           variant: "millisecondsSinceEpoch",
         },
       });
-    }
+    },
   );
 
-  test.each(["1640273389", "1608737603"])(
-    "%p should be inferred as an timestamp",
-    (value) => {
-      expect(inferType(value)).toEqual({
-        name: "string",
-        format: {
-          name: "timestamp",
-          variant: "secondsSinceEpoch",
-        },
-      });
-    }
-  );
+  test.each(["1640273389", "1608737603"])("%p should be inferred as an timestamp", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      format: {
+        name: "timestamp",
+        variant: "secondsSinceEpoch",
+      },
+    });
+  });
 
-  test.each(["1596597839946364285"])(
-    "%p should be inferred as an timestamp",
-    (value) => {
-      expect(inferType(value)).toEqual({
-        name: "string",
-        format: {
-          name: "timestamp",
-          variant: "nanosecondsSinceEpoch",
-        },
-      });
-    }
-  );
+  test.each(["1596597839946364285"])("%p should be inferred as an timestamp", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      format: {
+        name: "timestamp",
+        variant: "nanosecondsSinceEpoch",
+      },
+    });
+  });
 });
 
 describe("email addresses", () => {
@@ -160,31 +150,25 @@ describe("email addresses", () => {
 });
 
 describe("currencies", () => {
-  test.each(["USD", "XPF", "BTC"])(
-    "%p should be inferred as a currency code",
-    (value) => {
-      expect(inferType(value)).toEqual({
-        name: "string",
-        format: {
-          name: "currency",
-          variant: "iso4217",
-        },
-      });
-    }
-  );
+  test.each(["USD", "XPF", "BTC"])("%p should be inferred as a currency code", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      format: {
+        name: "currency",
+        variant: "iso4217",
+      },
+    });
+  });
 
-  test.each(["LTC", "ETH", "XRP"])(
-    "%p should be inferred as a crypto currency",
-    (value) => {
-      expect(inferType(value)).toEqual({
-        name: "string",
-        format: {
-          name: "currency",
-          variant: "crypto",
-        },
-      });
-    }
-  );
+  test.each(["LTC", "ETH", "XRP"])("%p should be inferred as a crypto currency", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      format: {
+        name: "currency",
+        variant: "crypto",
+      },
+    });
+  });
 
   test.each(["Euro", "United States dollar", "US Dollar"])(
     "%p should be inferred as a currency in english",
@@ -196,7 +180,7 @@ describe("currencies", () => {
           variant: "english",
         },
       });
-    }
+    },
   );
 });
 
@@ -211,7 +195,7 @@ describe("country", () => {
           variant: "iso3166-3",
         },
       });
-    }
+    },
   );
 
   test.each(["US", "GB", "JP", "NZ", "SV", "DE", "IE"])(
@@ -224,7 +208,7 @@ describe("country", () => {
           variant: "iso3166-2",
         },
       });
-    }
+    },
   );
 });
 
@@ -250,18 +234,15 @@ describe("tlds", () => {
 });
 
 describe("ip address", () => {
-  test.each(["192.168.0.1", "172.16.0.0"])(
-    "%p should be inferred as an ipv4 address",
-    (value) => {
-      expect(inferType(value)).toEqual({
-        name: "string",
-        format: {
-          name: "ip",
-          variant: "v4",
-        },
-      });
-    }
-  );
+  test.each(["192.168.0.1", "172.16.0.0"])("%p should be inferred as an ipv4 address", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      format: {
+        name: "ip",
+        variant: "v4",
+      },
+    });
+  });
 
   test.each(["2001:db8:1234::1", "2001:0:ce49:7601:e866:efff:62c3:fffe"])(
     "%p should be inferred as an ipv6 address",
@@ -273,7 +254,7 @@ describe("ip address", () => {
           variant: "v6",
         },
       });
-    }
+    },
   );
 });
 
@@ -288,7 +269,7 @@ describe("language", () => {
           variant: "iso693-1",
         },
       });
-    }
+    },
   );
 
   test.each(["eng", "eus", "ind", "zul"])(
@@ -301,7 +282,7 @@ describe("language", () => {
           variant: "iso693-2",
         },
       });
-    }
+    },
   );
 
   test.each(["Arabic", "Welsh", "Russian", "Swahili"])(
@@ -314,7 +295,7 @@ describe("language", () => {
           variant: "english",
         },
       });
-    }
+    },
   );
 
   test.each(["eesti, eesti keel", "Afaan Oromoo", "dansk", "Español"])(
@@ -327,7 +308,7 @@ describe("language", () => {
           variant: "native",
         },
       });
-    }
+    },
   );
 });
 
@@ -409,7 +390,7 @@ describe("uuids", () => {
           variant: "v4",
         },
       });
-    }
+    },
   );
 
   test.each(["cfa649f0-650b-11ec-acb3-03462fc79f5d"])(
@@ -422,7 +403,7 @@ describe("uuids", () => {
           variant: "v1",
         },
       });
-    }
+    },
   );
 
   test.each(["bde4a7b9-5793-5a1f-b378-211205b15898"])(
@@ -435,48 +416,39 @@ describe("uuids", () => {
           variant: "v5",
         },
       });
-    }
+    },
   );
 });
 
 describe("hostnames", () => {
-  test.each([
-    "localhost",
-    "example.com",
-    "foo.example.com",
-    "exa-mple.co.uk",
-    "example.com.",
-  ])("%p should be inferred as a rfc1123 hostname", (value) => {
-    expect(inferType(value)).toEqual({
-      name: "string",
-      format: {
-        name: "hostname",
-        variant: "rfc1123",
-      },
-    });
-  });
-
-  test.each(["exa_mple.com"])(
-    "%p should be inferred as a rfc5890 hostname",
+  test.each(["localhost", "example.com", "foo.example.com", "exa-mple.co.uk", "example.com."])(
+    "%p should be inferred as a rfc1123 hostname",
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
         format: {
           name: "hostname",
-          variant: "rfc5890",
+          variant: "rfc1123",
         },
       });
-    }
+    },
   );
 
-  test.each([`${"example".repeat(36)}.com`])(
-    "%p should NOT be inferred as a hostname",
-    (value) => {
-      expect(inferType(value)).toEqual({
-        name: "string",
-      });
-    }
-  );
+  test.each(["exa_mple.com"])("%p should be inferred as a rfc5890 hostname", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      format: {
+        name: "hostname",
+        variant: "rfc5890",
+      },
+    });
+  });
+
+  test.each([`${"example".repeat(36)}.com`])("%p should NOT be inferred as a hostname", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+    });
+  });
 });
 
 describe("file sizes", () => {
@@ -490,34 +462,34 @@ describe("file sizes", () => {
           variant: "human",
         },
       });
-    }
+    },
   );
 });
 
 describe("json", () => {
-  test.each([
-    '{ "foo": 1 }',
-    '{"name":"string","format":{"name":"filesize","variant":"human"}}',
-  ])("%p should be inferred as a json string", (value) => {
-    expect(inferType(value)).toEqual({
-      name: "string",
-      format: {
-        name: "json",
-        variant: "ecma262",
-      },
-    });
-  });
+  test.each(['{ "foo": 1 }', '{"name":"string","format":{"name":"filesize","variant":"human"}}'])(
+    "%p should be inferred as a json string",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        format: {
+          name: "json",
+          variant: "ecma262",
+        },
+      });
+    },
+  );
 
-  test.each([
-    "{ foo: 1, }",
-    `{name:'string',format:{name: 0xdecaf, variant:.8675309}}`,
-  ])("%p should be inferred as a json string", (value) => {
-    expect(inferType(value)).toEqual({
-      name: "string",
-      format: {
-        name: "json",
-        variant: "json5",
-      },
-    });
-  });
+  test.each(["{ foo: 1, }", `{name:'string',format:{name: 0xdecaf, variant:.8675309}}`])(
+    "%p should be inferred as a json string",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        format: {
+          name: "json",
+          variant: "json5",
+        },
+      });
+    },
+  );
 });

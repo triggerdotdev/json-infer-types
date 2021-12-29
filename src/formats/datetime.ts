@@ -58,12 +58,14 @@ function inferRFC3339(value: string): JSONDateTimeFormat | undefined {
     .filter((rfc) => rfc.matches !== null && rfc.matches.some((i) => i));
 
   const rfc3339BestMatch = rfc3339Matches.sort(
-    (a, b) => b.matches!.length - a.matches!.length
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    (a, b) => b.matches!.length - a.matches!.length,
   )[0];
 
   if (rfc3339BestMatch) {
     return {
       name: "datetime",
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       parts: rfc3339BestMatch.parts(rfc3339BestMatch.matches!),
       variant: "rfc3339",
     };

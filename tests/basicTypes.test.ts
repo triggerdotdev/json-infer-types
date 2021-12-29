@@ -43,18 +43,12 @@ test("It should handle array items", () => {
 
   expect(inferType([1, { foo: "bar" }])).toEqual({
     name: "array",
-    items: [
-      { name: "int" },
-      { name: "object", properties: { foo: { name: "string" } } },
-    ],
+    items: [{ name: "int" }, { name: "object", properties: { foo: { name: "string" } } }],
   });
 
   expect(inferType([1, { foo: "bar" }, { foo: "baz" }])).toEqual({
     name: "array",
-    items: [
-      { name: "int" },
-      { name: "object", properties: { foo: { name: "string" } } },
-    ],
+    items: [{ name: "int" }, { name: "object", properties: { foo: { name: "string" } } }],
   });
 });
 
@@ -78,7 +72,7 @@ it("Should handle string formats inside objects inside arrays", () => {
           ts: "2019-10-12T14:20:50.52+07:00",
         },
       ],
-    })
+    }),
   ).toEqual({
     name: "object",
     properties: {
@@ -115,8 +109,8 @@ it("should allow for shallow inference", () => {
           },
         ],
       },
-      { shallow: true }
-    )
+      { shallow: true },
+    ),
   ).toEqual({
     name: "object",
   });

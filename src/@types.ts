@@ -6,10 +6,7 @@ export type JSONDateTimeFormat = {
 
 export type JSONTimestampFormat = {
   name: "timestamp";
-  variant:
-    | "millisecondsSinceEpoch"
-    | "nanosecondsSinceEpoch"
-    | "secondsSinceEpoch";
+  variant: "millisecondsSinceEpoch" | "nanosecondsSinceEpoch" | "secondsSinceEpoch";
 };
 
 export type JSONEmailFormat = {

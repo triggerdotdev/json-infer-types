@@ -1,9 +1,6 @@
 import { JSONHostnameFormat } from "../@types";
 
-function isValidHostname(
-  value: string,
-  allowUnderscore: boolean = false
-): boolean {
+function isValidHostname(value: string, allowUnderscore = false): boolean {
   if (value.length === 0) {
     return false;
   }
@@ -17,8 +14,8 @@ function isValidHostname(
   }
 
   const validHostnameChars = new RegExp(
-    `^[a-zA-Z0-9-.${allowUnderscore ? "_" : ""}]{1,253}\.?$`,
-    "g"
+    `^[a-zA-Z0-9-.${allowUnderscore ? "_" : ""}]{1,253}.?$`,
+    "g",
   );
   if (!validHostnameChars.test(value)) {
     return false;
@@ -31,10 +28,7 @@ function isValidHostname(
   const labels = value.split(".");
 
   const isValid = labels.every(function (label) {
-    const validLabelChars = new RegExp(
-      `^([a-zA-Z0-9-${allowUnderscore ? "_" : ""}]+)$`,
-      "g"
-    );
+    const validLabelChars = new RegExp(`^([a-zA-Z0-9-${allowUnderscore ? "_" : ""}]+)$`, "g");
 
     const validLabel =
       validLabelChars.test(label) &&

@@ -8,10 +8,7 @@ type InferTypeOptions = {
   shallow?: boolean;
 };
 
-export function inferType(
-  value: any,
-  options?: InferTypeOptions
-): JSONValueType {
+export function inferType(value: unknown, options?: InferTypeOptions): JSONValueType {
   const opts = Object.assign({}, { shallow: false }, options);
 
   if (value === null) {
@@ -67,7 +64,8 @@ export function inferType(
     return {
       name: "object",
       properties: Object.keys(value).reduce((acc, key) => {
-        acc[key] = inferType(value[key]);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        acc[key] = inferType((value as any)[key]);
         return acc;
       }, {} as Record<string, JSONValueType>),
     };
