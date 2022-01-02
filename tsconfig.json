@@ -1,6 +1,5 @@
 {
-  "extends": "@tsconfig/node16/tsconfig.json",
-  "module": "ES2020",
+  "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
     "preserveConstEnums": true,
     "outDir": "./lib",

@@ -1,6 +1,6 @@
 {
   "name": "@jsonhero/json-infer-types",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Infer the types of a JSON value",
   "homepage": "https://github.com/jsonhero-io/json-infer-types",
   "bugs": {
@@ -41,10 +41,8 @@
   "author": "Eric Allam",
   "license": "MIT",
   "devDependencies": {
-    "@tsconfig/node16": "^1.0.2",
+    "@tsconfig/recommended": "^1.0.1",
     "@types/jest": "^27.0.2",
-    "@types/lodash.isequal": "^4.5.5",
-    "@types/lodash.uniqwith": "^4.5.6",
     "@types/mime-types": "^2.1.1",
     "@types/node": "^16.11.7",
     "@types/uuid": "^8.3.3",
@@ -64,8 +62,6 @@
   "dependencies": {
     "ip-address": "^8.1.0",
     "json5": "^2.2.0",
-    "lodash.isequal": "^4.5.0",
-    "lodash.uniqwith": "^4.5.0",
     "mime-types": "^2.1.34",
     "uuid": "^8.3.2"
   },
