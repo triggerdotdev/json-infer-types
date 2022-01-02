@@ -1,4 +1,7 @@
-import { JSONTimestampFormat } from "../@types";
+export type JSONTimestampFormat = {
+  name: "timestamp";
+  variant: "millisecondsSinceEpoch" | "nanosecondsSinceEpoch" | "secondsSinceEpoch";
+};
 
 const timestampSecondsSinceEpoch = /^\d{10}$/;
 const timestampMsSinceEpoch = /^\d{13}$/;

@@ -1,4 +1,7 @@
-import { JSONStringFormat } from "../@types";
+export type JSONEmailFormat = {
+  name: "email";
+  variant: "rfc5321" | "rfc5322";
+};
 
 const rfc5321AddressRegex =
   /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i;
@@ -7,7 +10,7 @@ const rfc5321Regex = new RegExp(`^${rfc5321AddressRegex.source}$`);
 
 const rfc5322Regex = new RegExp(`^[^"]+<${rfc5321AddressRegex.source}>$`);
 
-export function inferEmail(value: string): JSONStringFormat | undefined {
+export function inferEmail(value: string): JSONEmailFormat | undefined {
   if (rfc5321Regex.exec(value)) {
     return { name: "email", variant: "rfc5321" };
   }

@@ -1,7 +1,11 @@
 import { URL } from "url";
-import { JSONURIFormat } from "../@types";
 import mime from "mime-types";
 import path from "path";
+
+export type JSONURIFormat = {
+  name: "uri";
+  contentType?: string;
+};
 
 export function inferUri(value: string): JSONURIFormat | undefined {
   try {

@@ -1,5 +1,9 @@
-import { JSONJSONFormat } from "../@types";
 import JSON5 from "json5";
+
+export type JSONJSONFormat = {
+  name: "json";
+  variant: "ecma262" | "json5";
+};
 
 export function inferJson(value: string): JSONJSONFormat | undefined {
   try {

@@ -1,4 +1,8 @@
-import { JSONDateTimeFormat } from "../@types";
+export type JSONDateTimeFormat = {
+  name: "datetime";
+  parts: "datetime" | "date" | "time";
+  variant: "rfc2822" | "rfc3339";
+};
 
 export function inferDatetime(value: string): JSONDateTimeFormat | undefined {
   const rfc3339Match = inferRFC3339(value);

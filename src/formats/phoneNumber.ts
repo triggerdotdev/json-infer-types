@@ -1,4 +1,7 @@
-import { JSONPhoneNumberFormat } from "../@types";
+export type JSONPhoneNumberFormat = {
+  name: "phoneNumber";
+  variant: "e.164";
+};
 
 const phoneNumberRegex = /^\+[0-9]{6,15}$/;
 

@@ -1,87 +1,42 @@
-import uniqWith from "lodash/uniqWith";
-import isEqual from "lodash/isEqual";
-import { JSONValueType, JSONStringFormat } from "./@types";
+import { JSONValueType } from "./@types";
+import { inferFormat } from "./formats";
 
-import * as formats from "./formats";
+export { JSONValueType };
 
-type InferTypeOptions = {
-  shallow?: boolean;
-};
-
-export function inferType(value: unknown, options?: InferTypeOptions): JSONValueType {
-  const opts = Object.assign({}, { shallow: false }, options);
-
+export function inferType(value: unknown): JSONValueType {
   if (value === null) {
-    return { name: "null" };
+    return { name: "null", value: null };
   }
 
   if (typeof value === "boolean") {
-    return { name: "bool" };
+    return { name: "bool", value };
   }
 
   if (typeof value === "number") {
     if (Number.isInteger(value)) {
-      return { name: "int" };
+      return { name: "int", value };
     } else {
-      return { name: "float" };
+      return { name: "float", value };
     }
   }
 
   if (typeof value === "string") {
-    return { name: "string", format: inferFormat(value) };
+    return { name: "string", value, format: inferFormat(value) };
   }
 
   if (typeof value === "object") {
     if (Array.isArray(value)) {
-      if (opts.shallow) {
-        return {
-          name: "array",
-        };
-      }
-
-      const itemTypes = value.map((item) => inferType(item, opts));
-      const uniqTypes = uniqWith(itemTypes, isEqual);
-
-      if (uniqTypes.length === 1) {
-        return {
-          name: "array",
-          items: uniqTypes[0],
-        };
-      }
-
       return {
         name: "array",
-        items: uniqTypes,
-      };
-    }
-
-    if (opts.shallow) {
-      return {
-        name: "object",
+        value: value,
       };
     }
 
     return {
       name: "object",
-      properties: Object.keys(value).reduce((acc, key) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        acc[key] = inferType((value as any)[key]);
-        return acc;
-      }, {} as Record<string, JSONValueType>),
+      value,
     };
   }
 
-  return { name: "null" };
-}
-
-function inferFormat(value: string): JSONStringFormat | undefined {
-  for (const [, format] of Object.entries(formats)) {
-    const result = format(value);
-
-    if (result) {
-      return result;
-    }
-  }
-
-  return undefined;
+  return { name: "null", value: null };
 }

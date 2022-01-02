@@ -1,5 +1,9 @@
-import { JSONIPAddressFormat } from "../@types";
 import { Address6, Address4 } from "ip-address";
+
+export type JSONIPAddressFormat = {
+  name: "ip";
+  variant: "v4" | "v6";
+};
 
 export function inferIpAddress(value: string): JSONIPAddressFormat | undefined {
   try {

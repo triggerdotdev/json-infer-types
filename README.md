@@ -9,8 +9,6 @@
 
 - [🚀 Features](#-features)
 - [💻 Usage](#-usage)
-  - [Objects](#objects)
-  - [Arrays](#arrays)
   - [Strings](#strings)
 - [String Formats](#string-formats)
   - [Date/Time strings](#datetime-strings)
@@ -21,7 +19,7 @@
 ## 🚀 Features
 
 - Written in typescript
-- Infers types of values inside objects and arrays
+- Narrows type of the value when using with Typescript
 - Lightweight with only a few third-party dependencies
 - Includes a large set of formats for strings
   - Dates and times (and timestamps)
@@ -51,103 +49,20 @@ $ npm install --save @jsonhero/json-infer-types
 ```js
 const { inferType } = require("@jsonhero/json-infer-types");
 
-inferType(123); // => { name: "int" }
+inferType(123); // => { name: "int", value: 123 }
 ```
 
-The following basic types are supported:
+The following types are supported:
 
 ```js
-inferType(null); // => { name: "null" }
-inferType(true); // => { name: "bool" }
-inferType(123); // => { name: "int" }
-inferType(123.456); // => { name: "float" }
-inferType("hello world"); // => { name: "string" }
-```
-
-### Objects
-
-Objects have an additional `properties` property that infers its value types
-
-```js
-inferType({ foo: "bar" });
-```
-
-Will result in
-
-```json
-{ "name": "object", "properties": { "foo": { "name": "string" } } }
-```
-
-### Arrays
-
-Arrays have an additional `items` property that infers the types of its items
-
-```js
-inferType([8, 176, 3, 49, 0]); // { name: "array", items: { name: "int" }}
-```
-
-This works for an array of objects as well
-
-```js
-inferType([
-  { id: "1", email: "eric@example.com" },
-  { id: "2", email: "matt@example.com" },
-]);
-```
-
-Will result in
-
-```json
-{
-  "name": "array",
-  "items": {
-    "name": "object",
-    "properties": {
-      "id": { "name": "string" },
-      "email": {
-        "name": "string",
-        "format": {
-          "name": "email",
-          "variant": "rfc5321"
-        }
-      }
-    }
-  }
-}
-```
-
-If they array has items of different types, `items` will be an array of objects representing each unique type found in the array
-
-```js
-inferType([1, "hello world"]);
-```
-
-Gives the result
-
-```json
-{
-  "name": "array",
-  "items": [
-    {
-      "name": "int"
-    },
-    {
-      "name": "string"
-    }
-  ]
-}
-```
-
-If you don't want or need the `properties` or `items` inferred you can pass the `shallow: true` option to `inferType`
-
-```js
-inferType(
-  [
-    { id: "1", email: "eric@example.com" },
-    { id: "2", email: "matt@example.com" },
-  ],
-  { shallow: true }
-); // => { name: "array" }
+inferType(null); // => { name: "null", value: null }
+inferType(undefined); // => { name: "null", value: null }
+inferType(true); // => { name: "bool", value: true }
+inferType(123); // => { name: "int", value: 123 }
+inferType(123.456); // => { name: "float", value: 123.456 }
+inferType("hello world"); // => { name: "string", value: "hello world" }
+inferType({ foo: "bar" }); // => { name: "object", value: { foo: "bar" } }
+inferType([1, 2, 3]); // => { name: "array", value: [1, 2, 3] }
 ```
 
 ### Strings
@@ -163,6 +78,7 @@ Will be
 ```json
 {
   "name": "string",
+  "value": "https://www.example.com/foo#bar",
   "format": {
     "name": "uri"
   }
@@ -174,6 +90,7 @@ Some formats have mutliple variants, like IP Address. `inferType("192.168.0.1")`
 ```json
 {
   "name": "string",
+  "value": "192.168.0.1",
   "format": {
     "name": "ip",
     "variant": "v4"
@@ -186,6 +103,7 @@ And `inferType("2001:db8:1234::1")` will be interpreted as an IPV6 address
 ```json
 {
   "name": "string",
+  "value": "2001:db8:1234::1",
   "format": {
     "name": "ip",
     "variant": "v6"
@@ -208,6 +126,7 @@ Will result in
 ```json
 {
   "name": "string",
+  "value": "2019-01-01 00:00:00.000Z",
   "format": {
     "name": "datetime",
     "parts": "datetime",
@@ -245,6 +164,7 @@ Will result in
 ```json
 {
   "name": "string",
+  "value": "1596597629980",
   "format": {
     "name": "timestamp",
     "variant": "millisecondsSinceEpoch"
@@ -267,6 +187,7 @@ Will result in
 ```json
 {
   "name": "string",
+  "value": "https://www.example.com/foo#bar",
   "format": {
     "name": "uri"
   }
@@ -278,6 +199,7 @@ If the URI contains a file extension, the inferred `contentType` will be include
 ```json
 {
   "name": "string",
+  "value": "https://www.example.com/foo.json",
   "format": {
     "name": "uri",
     "contentType": "application/json"
@@ -300,6 +222,7 @@ Will result in
 ```json
 {
   "name": "string",
+  "value": "eallam@example.com",
   "format": {
     "name": "email",
     "variant": "rfc5321"

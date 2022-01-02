@@ -1,4 +1,7 @@
-import { JSONFilesizeFormat } from "../@types";
+export type JSONFilesizeFormat = {
+  name: "filesize";
+  variant: "human";
+};
 
 export function inferFilesize(value: string): JSONFilesizeFormat | undefined {
   if (value.match(/^[0-9.]+\s?(?:(B|MB|K|GB|TB|PB|MiB|KB|kB))$/)) {

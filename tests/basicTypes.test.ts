@@ -1,117 +1,41 @@
 import { inferType } from "../src";
 
 test("It should infer basic types", () => {
-  expect(inferType(null)).toEqual({ name: "null" });
-  expect(inferType(undefined)).toEqual({ name: "null" });
-  expect(inferType(true)).toEqual({ name: "bool" });
-  expect(inferType(1.1)).toEqual({ name: "float" });
-  expect(inferType(1)).toEqual({ name: "int" });
-  expect(inferType("hello world")).toEqual({ name: "string" });
-  expect(inferType("")).toEqual({ name: "string" });
+  expect(inferType(null)).toEqual({ name: "null", value: null });
+  expect(inferType(undefined)).toEqual({ name: "null", value: null });
+  expect(inferType(true)).toEqual({ name: "bool", value: true });
+  expect(inferType(1.1)).toEqual({ name: "float", value: 1.1 });
+  expect(inferType(1)).toEqual({ name: "int", value: 1 });
+  expect(inferType("hello world")).toEqual({
+    name: "string",
+    value: "hello world",
+  });
+  expect(inferType("")).toEqual({ name: "string", value: "" });
+  expect(inferType({ foo: "bar" })).toEqual({ name: "object", value: { foo: "bar" } });
+  expect(inferType([{ foo: "bar" }])).toEqual({ name: "array", value: [{ foo: "bar" }] });
 });
 
-test("It should handle object properties", () => {
-  expect(inferType({ foo: "bar" })).toEqual({
-    name: "object",
-    properties: { foo: { name: "string" } },
-  });
+test("It should narrow the type of the value", () => {
+  const unknownInfer = (value: unknown): number | undefined => {
+    const result = inferType(value);
 
-  expect(inferType({ foo: 1 })).toEqual({
-    name: "object",
-    properties: { foo: { name: "int" } },
-  });
+    if (result.name === "int") {
+      return result.value;
+    }
+  };
 
-  expect(inferType({ foo: 1, bar: { baz: "hello world" } })).toEqual({
-    name: "object",
-    properties: {
-      foo: { name: "int" },
-      bar: { name: "object", properties: { baz: { name: "string" } } },
-    },
-  });
+  const narrowedValue = unknownInfer(1);
+
+  expect(narrowedValue == 1).toBe(true);
 });
 
-test("It should handle array items", () => {
-  expect(inferType([1, 2, 3])).toEqual({
-    name: "array",
-    items: { name: "int" },
-  });
+test("It should be useful for gathering type information from a JSON string", () => {
+  const jsonString = `{ "foo": "bar", "baz": 1 }`;
+  const jsonObject = JSON.parse(jsonString);
 
-  expect(inferType([1, "hello world"])).toEqual({
-    name: "array",
-    items: [{ name: "int" }, { name: "string" }],
-  });
+  const jsonType = inferType(jsonObject);
 
-  expect(inferType([1, { foo: "bar" }])).toEqual({
-    name: "array",
-    items: [{ name: "int" }, { name: "object", properties: { foo: { name: "string" } } }],
-  });
-
-  expect(inferType([1, { foo: "bar" }, { foo: "baz" }])).toEqual({
-    name: "array",
-    items: [{ name: "int" }, { name: "object", properties: { foo: { name: "string" } } }],
-  });
-});
-
-it("Should handle arrays inside objects", () => {
-  expect(inferType({ foo: [1, 2, 3] })).toEqual({
-    name: "object",
-    properties: {
-      foo: { name: "array", items: { name: "int" } },
-    },
-  });
-});
-
-it("Should handle string formats inside objects inside arrays", () => {
-  expect(
-    inferType({
-      foo: [
-        {
-          ts: "2019-01-01T00:00:00.000Z",
-        },
-        {
-          ts: "2019-10-12T14:20:50.52+07:00",
-        },
-      ],
-    }),
-  ).toEqual({
-    name: "object",
-    properties: {
-      foo: {
-        name: "array",
-        items: {
-          name: "object",
-          properties: {
-            ts: {
-              name: "string",
-              format: {
-                name: "datetime",
-                parts: "datetime",
-                variant: "rfc3339",
-              },
-            },
-          },
-        },
-      },
-    },
-  });
-});
-
-it("should allow for shallow inference", () => {
-  expect(
-    inferType(
-      {
-        foo: [
-          {
-            ts: "2019-01-01T00:00:00.000Z",
-          },
-          {
-            ts: "2019-10-12T14:20:50.52+07:00",
-          },
-        ],
-      },
-      { shallow: true },
-    ),
-  ).toEqual({
-    name: "object",
-  });
+  if (jsonType.name === "object") {
+    expect(jsonType.value).toEqual({ foo: "bar", baz: 1 });
+  }
 });

@@ -1,4 +1,7 @@
-import { JSONHostnameFormat } from "../@types";
+export type JSONHostnameFormat = {
+  name: "hostname";
+  variant: "rfc1123" | "rfc5890";
+};
 
 function isValidHostname(value: string, allowUnderscore = false): boolean {
   if (value.length === 0) {

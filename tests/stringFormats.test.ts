@@ -18,6 +18,7 @@ describe("rfc3339", () => {
   ])("%p should be inferred as an rfc3339 datetime", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
+      value,
       format: {
         name: "datetime",
         parts: "datetime",
@@ -31,6 +32,7 @@ describe("rfc3339", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "datetime",
           parts: "date",
@@ -45,6 +47,7 @@ describe("rfc3339", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "datetime",
           parts: "time",
@@ -71,6 +74,7 @@ describe("rfc2822", () => {
   ])("%p should be inferred as an rfc2822 datetime", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
+      value,
       format: {
         name: "datetime",
         parts: "datetime",
@@ -86,6 +90,7 @@ describe("timestamps", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "timestamp",
           variant: "millisecondsSinceEpoch",
@@ -97,6 +102,7 @@ describe("timestamps", () => {
   test.each(["1640273389", "1608737603"])("%p should be inferred as an timestamp", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
+      value,
       format: {
         name: "timestamp",
         variant: "secondsSinceEpoch",
@@ -107,6 +113,7 @@ describe("timestamps", () => {
   test.each(["1596597839946364285"])("%p should be inferred as an timestamp", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
+      value,
       format: {
         name: "timestamp",
         variant: "nanosecondsSinceEpoch",
@@ -127,6 +134,7 @@ describe("email addresses", () => {
   ])("%p should be inferred as an email", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
+      value,
       format: {
         name: "email",
         variant: "rfc5321",
@@ -141,6 +149,7 @@ describe("email addresses", () => {
   ])("%p should be inferred as an email", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
+      value,
       format: {
         name: "email",
         variant: "rfc5322",
@@ -153,6 +162,7 @@ describe("currencies", () => {
   test.each(["USD", "XPF", "BTC"])("%p should be inferred as a currency code", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
+      value,
       format: {
         name: "currency",
         variant: "iso4217",
@@ -163,6 +173,7 @@ describe("currencies", () => {
   test.each(["LTC", "ETH", "XRP"])("%p should be inferred as a crypto currency", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
+      value,
       format: {
         name: "currency",
         variant: "crypto",
@@ -175,6 +186,7 @@ describe("currencies", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "currency",
           variant: "english",
@@ -190,6 +202,7 @@ describe("country", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "country",
           variant: "iso3166-3",
@@ -203,6 +216,7 @@ describe("country", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "country",
           variant: "iso3166-2",
@@ -226,6 +240,7 @@ describe("tlds", () => {
   ])("%p should be inferred as a tld", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
+      value,
       format: {
         name: "tld",
       },
@@ -237,6 +252,7 @@ describe("ip address", () => {
   test.each(["192.168.0.1", "172.16.0.0"])("%p should be inferred as an ipv4 address", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
+      value,
       format: {
         name: "ip",
         variant: "v4",
@@ -249,6 +265,7 @@ describe("ip address", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "ip",
           variant: "v6",
@@ -264,6 +281,7 @@ describe("language", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "language",
           variant: "iso693-1",
@@ -277,6 +295,7 @@ describe("language", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "language",
           variant: "iso693-2",
@@ -290,6 +309,7 @@ describe("language", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "language",
           variant: "english",
@@ -303,6 +323,7 @@ describe("language", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "language",
           variant: "native",
@@ -322,6 +343,7 @@ describe("phone numbers", () => {
   ])("%p should be inferred as an internation phone number", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
+      value,
       format: {
         name: "phoneNumber",
         variant: "e.164",
@@ -338,6 +360,7 @@ describe("uris", () => {
   ])("%p should be inferred as a rfc3986 URI", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
+      value,
       format: {
         name: "uri",
       },
@@ -347,6 +370,7 @@ describe("uris", () => {
   test("It should correctly infer the contentType of the uri", () => {
     expect(inferType("https://www.example.com/foo.json")).toEqual({
       name: "string",
+      value: "https://www.example.com/foo.json",
       format: {
         name: "uri",
         contentType: "application/json",
@@ -355,6 +379,7 @@ describe("uris", () => {
 
     expect(inferType("https://www.example.com/foo.md")).toEqual({
       name: "string",
+      value: "https://www.example.com/foo.md",
       format: {
         name: "uri",
         contentType: "text/markdown",
@@ -363,6 +388,7 @@ describe("uris", () => {
 
     expect(inferType("https://www.example.com/foo.jpg")).toEqual({
       name: "string",
+      value: "https://www.example.com/foo.jpg",
       format: {
         name: "uri",
         contentType: "image/jpeg",
@@ -371,6 +397,7 @@ describe("uris", () => {
 
     expect(inferType("https://www.example.com/foo.png")).toEqual({
       name: "string",
+      value: "https://www.example.com/foo.png",
       format: {
         name: "uri",
         contentType: "image/png",
@@ -385,6 +412,7 @@ describe("uuids", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "uuid",
           variant: "v4",
@@ -398,6 +426,7 @@ describe("uuids", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "uuid",
           variant: "v1",
@@ -411,6 +440,7 @@ describe("uuids", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "uuid",
           variant: "v5",
@@ -426,6 +456,7 @@ describe("hostnames", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "hostname",
           variant: "rfc1123",
@@ -437,6 +468,7 @@ describe("hostnames", () => {
   test.each(["exa_mple.com"])("%p should be inferred as a rfc5890 hostname", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
+      value,
       format: {
         name: "hostname",
         variant: "rfc5890",
@@ -447,6 +479,7 @@ describe("hostnames", () => {
   test.each([`${"example".repeat(36)}.com`])("%p should NOT be inferred as a hostname", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
+      value,
     });
   });
 });
@@ -457,6 +490,7 @@ describe("file sizes", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "filesize",
           variant: "human",
@@ -472,6 +506,7 @@ describe("json", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "json",
           variant: "ecma262",
@@ -485,6 +520,7 @@ describe("json", () => {
     (value) => {
       expect(inferType(value)).toEqual({
         name: "string",
+        value,
         format: {
           name: "json",
           variant: "json5",

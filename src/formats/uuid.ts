@@ -1,5 +1,9 @@
-import { JSONUUIDFormat } from "../@types";
 import { version, validate } from "uuid";
+
+export type JSONUUIDFormat = {
+  name: "uuid";
+  variant: "v1" | "v4" | "v5";
+};
 
 function validateVersion(uuid: string, versionNumber: 1 | 3 | 4 | 5): boolean {
   return validate(uuid) && version(uuid) === versionNumber;
