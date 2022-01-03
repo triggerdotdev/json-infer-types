@@ -1,13 +1,11 @@
 {
+  "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
     "preserveConstEnums": true,
     "outDir": "./lib",
     "declaration": true,
-    "allowJs": true,
-    "strict": true,
-    "esModuleInterop": true
+    "emitDeclarationOnly": true,
+    "allowJs": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
