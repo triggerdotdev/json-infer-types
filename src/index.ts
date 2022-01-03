@@ -2,6 +2,7 @@ import { JSONValueType } from "./@types";
 import { inferFormat } from "./formats";
 
 export { JSONValueType };
+export { JSONStringFormat } from "./formats";
 
 export function inferType(value: unknown): JSONValueType {
   if (value === null) {
