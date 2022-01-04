@@ -1,6 +1,6 @@
 {
   "name": "@jsonhero/json-infer-types",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Infer the types of a JSON value",
   "homepage": "https://github.com/jsonhero-io/json-infer-types",
   "bugs": {
@@ -13,6 +13,7 @@
   "exports": "./lib/index.js",
   "types": "lib/index.d.ts",
   "main": "./lib/index.js",
+  "type": "commonjs",
   "module": "./lib/index.mjs",
   "files": [
     "/lib"
