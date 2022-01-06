@@ -1,4 +1,4 @@
-import { URL } from "url";
+import { URL } from "universal-url";
 import mime from "mime-types";
 import path from "path";
 
