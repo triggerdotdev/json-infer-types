@@ -476,12 +476,15 @@ describe("hostnames", () => {
     });
   });
 
-  test.each([`${"example".repeat(36)}.com`])("%p should NOT be inferred as a hostname", (value) => {
-    expect(inferType(value)).toEqual({
-      name: "string",
-      value,
-    });
-  });
+  test.each([`${"example".repeat(36)}.com`, "Screen_Shot_2021-08-16_at_11_12_27_AM.png"])(
+    "%p should NOT be inferred as a hostname",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        value,
+      });
+    },
+  );
 });
 
 describe("file sizes", () => {

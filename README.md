@@ -15,6 +15,7 @@
   - [URI strings](#uri-strings)
   - [Email address strings](#email-address-strings)
   - [Other formats](#other-formats)
+- [Roadmap](#roadmap)
 
 ## 🚀 Features
 
@@ -269,3 +270,9 @@ The following table illustrates the rest of the formats JSON Infer Types support
 | `'{ foo: 1, }'`                           | json        | json5     |
 
 Please feel free to request additional formats by opening a [Github issue](https://github.com/jsonhero-io/json-infer-types/issues)
+
+## Roadmap
+
+- Infer Firestore timestamps
+- Infer semver string
+- Infer Emoji

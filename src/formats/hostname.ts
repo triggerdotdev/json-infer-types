@@ -1,3 +1,91 @@
+import path from "path";
+
+const filenameExtensions = [
+  ".7z",
+  ".aac",
+  ".au",
+  ".avi",
+  ".bmp",
+  ".bz2",
+  ".css",
+  ".csv",
+  ".dmg",
+  ".doc",
+  ".docx",
+  ".eot",
+  ".epub",
+  ".flac",
+  ".flv",
+  ".gif",
+  ".gz",
+  ".htm",
+  ".html",
+  ".ico",
+  ".jpeg",
+  ".jpg",
+  ".js",
+  ".json",
+  ".key",
+  ".m2v",
+  ".m4a",
+  ".m4v",
+  ".m4v",
+  ".md",
+  ".mov",
+  ".mp2",
+  ".mp3",
+  ".mp4",
+  ".mpe",
+  ".mpeg",
+  ".mpeg",
+  ".mpg",
+  ".mpg",
+  ".mpv",
+  ".mxf",
+  ".numbers",
+  ".odt",
+  ".ogg",
+  ".ogv",
+  ".pages",
+  ".pdf",
+  ".png",
+  ".ppt",
+  ".pptx",
+  ".psd",
+  ".rar",
+  ".raw",
+  ".rtf",
+  ".svg",
+  ".swf",
+  ".tar",
+  ".tgz",
+  ".tif",
+  ".tiff",
+  ".ts",
+  ".tsv",
+  ".ttf",
+  ".txt",
+  ".wav",
+  ".webp",
+  ".wmv",
+  ".woff",
+  ".woff2",
+  ".xls",
+  ".xlsx",
+  ".xml",
+  ".xz",
+  ".yaml",
+  ".yml",
+  ".z",
+  ".zip",
+];
+
+function isNotFilename(value: string): boolean {
+  const extname = path.extname(value);
+
+  return extname === "" || !filenameExtensions.includes(extname);
+}
+
 export type JSONHostnameFormat = {
   name: "hostname";
   variant: "rfc1123" | "rfc5890";
@@ -42,7 +130,7 @@ function isValidHostname(value: string, allowUnderscore = false): boolean {
     return validLabel;
   });
 
-  return isValid;
+  return isValid && isNotFilename(value);
 }
 
 export function inferHostname(value: string): JSONHostnameFormat | undefined {
