@@ -86,6 +86,13 @@ function isNotFilename(value: string): boolean {
   return extname === "" || !filenameExtensions.includes(extname);
 }
 
+function isNotSemver(value: string): boolean {
+  const regex =
+    /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/;
+
+  return !regex.test(value);
+}
+
 export type JSONHostnameFormat = {
   name: "hostname";
   variant: "rfc1123" | "rfc5890";
@@ -130,7 +137,7 @@ function isValidHostname(value: string, allowUnderscore = false): boolean {
     return validLabel;
   });
 
-  return isValid && isNotFilename(value);
+  return isValid && isNotFilename(value) && isNotSemver(value);
 }
 
 export function inferHostname(value: string): JSONHostnameFormat | undefined {

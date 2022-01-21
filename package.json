@@ -49,6 +49,7 @@
     "@tsconfig/recommended": "^1.0.1",
     "@types/jest": "^27.0.2",
     "@types/jsbn": "^1.2.30",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/mime-types": "^2.1.1",
     "@types/node": "^16.11.7",
     "@types/uuid": "^8.3.3",
@@ -72,6 +73,7 @@
   "dependencies": {
     "ip-address": "^8.1.0",
     "json5": "^2.2.0",
+    "jsonwebtoken": "^8.5.1",
     "mime-types": "^2.1.34",
     "universal-url": "^2.0.0",
     "uuid": "^8.3.2"

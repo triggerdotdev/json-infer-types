@@ -14,7 +14,10 @@
   - [Date/Time strings](#datetime-strings)
   - [URI strings](#uri-strings)
   - [Email address strings](#email-address-strings)
+  - [JWT](#jwt)
   - [Other formats](#other-formats)
+- [Object Formats](#object-formats)
+  - [Firestore Timestamps](#firestore-timestamps)
 - [Roadmap](#roadmap)
 
 ## 🚀 Features
@@ -231,6 +234,8 @@ Will result in
 }
 ```
 
+### JWT strings
+
 The following table illustrates the results of different email strings
 
 | String                                           | Variant |
@@ -250,10 +255,11 @@ The following table illustrates the rest of the formats JSON Infer Types support
 | `"USD"`, `"BTC"`                          | currency    | iso4217   |
 | `"United States dollar"`, `"Euro"`        | currency    | english   |
 | `"ETH"`, `"LTC"`                          | currency    | crypto    |
+| `'$'`, `'£'`, `'€'`, `'¥'`                | currency    | symbol    |
 | `"USA"`, `"MMR"`                          | country     | iso3166-3 |
 | `"US"`, `"GB"`, `"JP"`                    | country     | iso3166-2 |
 | `".com"`, `".co.uk"`, `".biz"`            | tld         |           |
-| `"192.168.0.1"`, `"172.16.0.0"`, `".biz"` | ip          | v4        |
+| `"192.168.0.1"`, `"172.16.0.0"`           | ip          | v4        |
 | `"2001:db8:1234::1"`                      | ip          | v6        |
 | `"en"`, `"ab"`, `"es"`                    | language    | iso693-1  |
 | `"eng"`, `"eus"`, `"zul"`                 | language    | iso693-2  |
@@ -268,6 +274,40 @@ The following table illustrates the rest of the formats JSON Infer Types support
 | `"544B"`, `"1.0MB"`, `"377K"`, `"1.87GB"` | filesize    | human     |
 | `'{ "foo": 1 }'`                          | json        | ecma262   |
 | `'{ foo: 1, }'`                           | json        | json5     |
+| `"/foo/bar"`, `"/foo/-/bar"`              | jsonPointer | rfc6901   |
+| `"0/foo/bar"`, `"2/0/baz/1/zip"`          | jsonPointer | relative  |
+| `"😄"`, `"🤪👨🏽‍🚀"`, `"👩‍👩‍👧‍👧"`                  | emoji       |           |
+| `"1.11.0"`, `"0.0.1"`, `"1.0.0-alpha.1"`  | semver      |           |
+
+## Object Formats
+
+We also infer the format of certain common object shapes, documented below:
+
+### Firestore Timestamps
+
+[Firestore Timestamps](https://firebase.google.com/docs/reference/node/firebase.firestore.Timestamp) are an object with two keys, `_seconds` and `_nanoseconds`:
+
+```json
+{
+  "_seconds": 1642533020,
+  "_nanoseconds": 932000000
+}
+```
+
+Inferring this object will result in the following inferred type:
+
+```json
+{
+  "name": "object",
+  "value": {
+    "_seconds": 1642533020,
+    "_nanoseconds": 932000000
+  },
+  "format": {
+    "name": "firestoreTimestamp"
+  }
+}
+```
 
 Please feel free to request additional formats by opening a [Github issue](https://github.com/jsonhero-io/json-infer-types/issues)
 

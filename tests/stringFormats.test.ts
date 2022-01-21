@@ -159,16 +159,19 @@ describe("email addresses", () => {
 });
 
 describe("currencies", () => {
-  test.each(["USD", "XPF", "BTC"])("%p should be inferred as a currency code", (value) => {
-    expect(inferType(value)).toEqual({
-      name: "string",
-      value,
-      format: {
-        name: "currency",
-        variant: "iso4217",
-      },
-    });
-  });
+  test.each(["USD", "XPF", "BTC", "usd", "eur", "btc"])(
+    "%p should be inferred as a currency code",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        value,
+        format: {
+          name: "currency",
+          variant: "iso4217",
+        },
+      });
+    },
+  );
 
   test.each(["LTC", "ETH", "XRP"])("%p should be inferred as a crypto currency", (value) => {
     expect(inferType(value)).toEqual({
@@ -194,6 +197,17 @@ describe("currencies", () => {
       });
     },
   );
+
+  test.each(["$", "£", "€", "¥"])("%p should be inferred as a currency symbol", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      value,
+      format: {
+        name: "currency",
+        variant: "symbol",
+      },
+    });
+  });
 });
 
 describe("country", () => {
@@ -531,4 +545,82 @@ describe("json", () => {
       });
     },
   );
+});
+
+describe("jsonPointer", () => {
+  test.each(["/foo/bar~0/baz~1/%a", "/foo//bar", "/foo/bar/", "/foo/0", "/foo/-/bar"])(
+    "%p should be inferred as an absolute jsonPointer",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        value,
+        format: {
+          name: "jsonPointer",
+          variant: "rfc6901",
+        },
+      });
+    },
+  );
+
+  test.each(["0/foo/bar", "2/0/baz/1/zip"])(
+    "%p should be inferred as an relative jsonPointer",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        value,
+        format: {
+          name: "jsonPointer",
+          variant: "relative",
+        },
+      });
+    },
+  );
+});
+
+describe("emoji", () => {
+  test.each(["😄", "🤪👨🏽‍🚀", "👩‍👩‍👧‍👧"])("%p should be inferred as an emoji", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      value,
+      format: {
+        name: "emoji",
+      },
+    });
+  });
+
+  test.each(["Hello 😄", "👩‍👩‍👧‍👧 Lots of people"])("%p should NOT be inferred as an emoji", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      value,
+    });
+  });
+});
+
+describe("semver", () => {
+  test.each(["1.2.3", "1.11.0", "0.0.1", "1.0.0-alpha.1", "1.0.0+20130313144700"])(
+    "%p should be inferred as a semver",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        value,
+        format: {
+          name: "semver",
+        },
+      });
+    },
+  );
+});
+
+describe("jwt", () => {
+  test.each([
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.sruoLZNJ59anK67z25t80L62OXDerSiAhWerW-usZLQ",
+  ])("%p should be inferred as a JWT", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      value,
+      format: {
+        name: "jwt",
+      },
+    });
+  });
 });

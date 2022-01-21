@@ -1,4 +1,4 @@
-import { JSONStringFormat } from "./formats";
+import { JSONStringFormat, JSONObjectFormat } from "./formats";
 
 export type JSONNullType = {
   name: "null";
@@ -29,6 +29,7 @@ export type JSONStringType = {
 export type JSONObjectType = {
   name: "object";
   value: object;
+  format?: JSONObjectFormat;
 };
 
 export type JSONArrayType = {

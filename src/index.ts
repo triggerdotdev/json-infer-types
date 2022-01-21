@@ -1,5 +1,5 @@
 import { JSONValueType } from "./@types";
-import { inferFormat } from "./formats";
+import { inferFormat, inferObjectFormat } from "./formats";
 
 export { JSONValueType };
 export { JSONStringFormat } from "./formats";
@@ -36,6 +36,7 @@ export function inferType(value: unknown): JSONValueType {
     return {
       name: "object",
       value,
+      format: inferObjectFormat(value),
     };
   }
 

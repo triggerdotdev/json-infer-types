@@ -13,6 +13,11 @@ import { inferUuid, JSONUUIDFormat } from "./uuid";
 import { inferFilesize, JSONFilesizeFormat } from "./filesize";
 import { inferHostname, JSONHostnameFormat } from "./hostname";
 import { inferJson, JSONJSONFormat } from "./json";
+import { inferJsonPointer, JSONJSONPointerFormat } from "./jsonPointer";
+import { inferEmoji, JSONEmojiFormat } from "./emoji";
+import { inferSemver, JSONSemverFormat } from "./semver";
+import { inferFirestoreTimestamp, JSONFirestoreTimestampFormat } from "./firestoreTimestamp";
+import { inferJWT, JSONJWTStringFormat } from "./jwt";
 
 export type JSONStringFormat =
   | JSONHostnameFormat
@@ -28,7 +33,11 @@ export type JSONStringFormat =
   | JSONTimestampFormat
   | JSONDateTimeFormat
   | JSONFilesizeFormat
-  | JSONJSONFormat;
+  | JSONJSONFormat
+  | JSONJSONPointerFormat
+  | JSONEmojiFormat
+  | JSONSemverFormat
+  | JSONJWTStringFormat;
 
 const formats = [
   inferDatetime,
@@ -45,10 +54,34 @@ const formats = [
   inferFilesize,
   inferHostname,
   inferJson,
+  inferJsonPointer,
+  inferEmoji,
+  inferSemver,
+  inferJWT,
 ];
 
 export function inferFormat(value: string): JSONStringFormat | undefined {
+  if (value.trim() === "") {
+    return undefined;
+  }
+
   for (const [, format] of Object.entries(formats)) {
+    const result = format(value);
+
+    if (result) {
+      return result;
+    }
+  }
+
+  return undefined;
+}
+
+export type JSONObjectFormat = JSONFirestoreTimestampFormat;
+
+const objectFormats = [inferFirestoreTimestamp];
+
+export function inferObjectFormat(value: object): JSONObjectFormat | undefined {
+  for (const [, format] of Object.entries(objectFormats)) {
     const result = format(value);
 
     if (result) {
