@@ -15,6 +15,10 @@ test("It should infer basic types", () => {
   expect(inferType([{ foo: "bar" }])).toEqual({ name: "array", value: [{ foo: "bar" }] });
 });
 
+test("it should allow an option to not include the values in the result", () => {
+  expect(inferType("", { returnValue: "no" })).toEqual({ name: "string" });
+});
+
 test("It should narrow the type of the value", () => {
   const unknownInfer = (value: unknown): number | undefined => {
     const result = inferType(value);

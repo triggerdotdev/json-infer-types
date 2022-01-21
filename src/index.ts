@@ -4,41 +4,53 @@ import { inferFormat, inferObjectFormat } from "./formats";
 export { JSONValueType };
 export { JSONStringFormat } from "./formats";
 
-export function inferType(value: unknown): JSONValueType {
+export type InferOptions = {
+  returnValue?: "yes" | "no";
+};
+
+export function inferType(value: unknown, options?: InferOptions): JSONValueType {
+  const opts: Required<InferOptions> = Object.assign({}, { returnValue: "yes" }, options);
+
+  const shouldReturnValue = opts.returnValue === "yes";
+
   if (value === null) {
-    return { name: "null", value: null };
+    return { name: "null", value: shouldReturnValue ? null : undefined };
   }
 
   if (typeof value === "boolean") {
-    return { name: "bool", value };
+    return { name: "bool", value: shouldReturnValue ? value : undefined };
   }
 
   if (typeof value === "number") {
     if (Number.isInteger(value)) {
-      return { name: "int", value };
+      return { name: "int", value: shouldReturnValue ? value : undefined };
     } else {
-      return { name: "float", value };
+      return { name: "float", value: shouldReturnValue ? value : undefined };
     }
   }
 
   if (typeof value === "string") {
-    return { name: "string", value, format: inferFormat(value) };
+    return {
+      name: "string",
+      value: shouldReturnValue ? value : undefined,
+      format: inferFormat(value),
+    };
   }
 
   if (typeof value === "object") {
     if (Array.isArray(value)) {
       return {
         name: "array",
-        value: value,
+        value: shouldReturnValue ? value : undefined,
       };
     }
 
     return {
       name: "object",
-      value,
       format: inferObjectFormat(value),
+      value: shouldReturnValue ? value : undefined,
     };
   }
 
-  return { name: "null", value: null };
+  return { name: "null", value: shouldReturnValue ? null : undefined };
 }
