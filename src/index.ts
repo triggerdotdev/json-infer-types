@@ -2,7 +2,37 @@ import { JSONValueType } from "./@types";
 import { inferFormat, inferObjectFormat } from "./formats";
 
 export { JSONValueType };
-export { JSONStringFormat } from "./formats";
+export {
+  JSONStringFormat,
+  JSONObjectFormat,
+  JSONHostnameFormat,
+  JSONUUIDFormat,
+  JSONURIFormat,
+  JSONPhoneNumberFormat,
+  JSONLanguageFormat,
+  JSONIPAddressFormat,
+  JSONTLDFormat,
+  JSONCountryFormat,
+  JSONCurrencyFormat,
+  JSONEmailFormat,
+  JSONTimestampFormat,
+  JSONDateTimeFormat,
+  JSONFilesizeFormat,
+  JSONJSONFormat,
+  JSONJSONPointerFormat,
+  JSONEmojiFormat,
+  JSONSemverFormat,
+  JSONJWTStringFormat,
+} from "./formats";
+export {
+  JSONNullType,
+  JSONBoolType,
+  JSONFloatType,
+  JSONIntType,
+  JSONStringType,
+  JSONObjectType,
+  JSONArrayType,
+} from "./@types";
 
 export type InferOptions = {
   returnValue?: "yes" | "no";
