@@ -34,35 +34,27 @@ export {
   JSONArrayType,
 } from "./@types";
 
-export type InferOptions = {
-  returnValue?: "yes" | "no";
-};
-
-export function inferType(value: unknown, options?: InferOptions): JSONValueType {
-  const opts: Required<InferOptions> = Object.assign({}, { returnValue: "yes" }, options);
-
-  const shouldReturnValue = opts.returnValue === "yes";
-
+export function inferType(value: unknown): JSONValueType {
   if (value === null) {
-    return { name: "null", value: shouldReturnValue ? null : undefined };
+    return { name: "null", value };
   }
 
   if (typeof value === "boolean") {
-    return { name: "bool", value: shouldReturnValue ? value : undefined };
+    return { name: "bool", value };
   }
 
   if (typeof value === "number") {
     if (Number.isInteger(value)) {
-      return { name: "int", value: shouldReturnValue ? value : undefined };
+      return { name: "int", value };
     } else {
-      return { name: "float", value: shouldReturnValue ? value : undefined };
+      return { name: "float", value };
     }
   }
 
   if (typeof value === "string") {
     return {
       name: "string",
-      value: shouldReturnValue ? value : undefined,
+      value,
       format: inferFormat(value),
     };
   }
@@ -71,16 +63,16 @@ export function inferType(value: unknown, options?: InferOptions): JSONValueType
     if (Array.isArray(value)) {
       return {
         name: "array",
-        value: shouldReturnValue ? value : undefined,
+        value,
       };
     }
 
     return {
       name: "object",
       format: inferObjectFormat(value),
-      value: shouldReturnValue ? value : undefined,
+      value,
     };
   }
 
-  return { name: "null", value: shouldReturnValue ? null : undefined };
+  return { name: "null", value: null };
 }

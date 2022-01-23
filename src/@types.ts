@@ -2,39 +2,39 @@ import { JSONStringFormat, JSONObjectFormat } from "./formats";
 
 export type JSONNullType = {
   name: "null";
-  value?: null;
+  value: null;
 };
 
 export type JSONBoolType = {
   name: "bool";
-  value?: boolean;
+  value: boolean;
 };
 
 export type JSONFloatType = {
   name: "float";
-  value?: number;
+  value: number;
 };
 
 export type JSONIntType = {
   name: "int";
-  value?: number;
+  value: number;
 };
 
 export type JSONStringType = {
   name: "string";
   format?: JSONStringFormat;
-  value?: string;
+  value: string;
 };
 
 export type JSONObjectType = {
   name: "object";
   format?: JSONObjectFormat;
-  value?: object;
+  value: object;
 };
 
 export type JSONArrayType = {
   name: "array";
-  value?: Array<unknown>;
+  value: Array<unknown>;
 };
 
 export type JSONValueType =
