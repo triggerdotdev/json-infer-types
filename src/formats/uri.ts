@@ -40,7 +40,7 @@ function lookupMimeType(ext?: string): string | undefined {
     ico: "image/vnd.microsoft.icon",
     ics: "text/calendar",
     jar: "application/java-archive",
-    jpeg: "image/jpeg ",
+    jpeg: "image/jpeg",
     jpg: "image/jpeg",
     jsonld: "application/ld+json",
     mid: "audio/midi",
