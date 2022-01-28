@@ -1,0 +1,52 @@
+{
+  "null": null,
+  "true": true,
+  "false": false,
+  "integer": 123,
+  "float": 123.456,
+  "string": "foo bar",
+  "object": {
+    "foo": "bar"
+  },
+  "array": [
+    "foo",
+    "bar"
+  ],
+  "formattedStrings": {
+    "datetime": "2019-01-01 00:00:00.000Z",
+    "date": "2019-01-01",
+    "time": "00:00:00.000Z",
+    "unix": "1596597629980",
+    "uri": "https://www.example.com/foo#bar",
+    "email": "eallam@example.com",
+    "currency-iso4217": "USD",
+    "currency-english": "Euro",
+    "currency-symbol": "€",
+    "currency-crypto": "ETH",
+    "country-iso3166-3": "USA",
+    "country-iso3166-2": "GB",
+    "tld": ".com",
+    "ipv4": "192.168.0.1",
+    "ipv6": "2001:db8:1234::1",
+    "language-iso639-1": "en",
+    "language-iso639-2": "eng",
+    "language-english": "Arabic",
+    "language-native": "Español",
+    "phoneNumber": "+1 (555) 555-5555",
+    "uuid": "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
+    "hostname": "example.com",
+    "filesize": "544B",
+    "json": "{\"foo\":\"bar\"}",
+    "json5": "{foo:1,}",
+    "jsonPointer": "/foo/bar",
+    "emoji": "🤔",
+    "semver": "1.2.3",
+    "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.sruoLZNJ59anK67z25t80L62OXDerSiAhWerW-usZLQ"
+  },
+  "formattedObjects": {
+    "firestoreTimestamp": {
+      "seconds": 1642533020,
+      "nanoseconds": 932000000
+    }
+  }
+}

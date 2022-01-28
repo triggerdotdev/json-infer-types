@@ -14,7 +14,6 @@
   - [Date/Time strings](#datetime-strings)
   - [URI strings](#uri-strings)
   - [Email address strings](#email-address-strings)
-  - [JWT](#jwt)
   - [Other formats](#other-formats)
 - [Object Formats](#object-formats)
   - [Firestore Timestamps](#firestore-timestamps)
@@ -234,8 +233,6 @@ Will result in
 }
 ```
 
-### JWT strings
-
 The following table illustrates the results of different email strings
 
 | String                                           | Variant |
@@ -313,6 +310,6 @@ Please feel free to request additional formats by opening a [Github issue](https
 
 ## Roadmap
 
-- Infer Firestore timestamps
-- Infer semver string
-- Infer Emoji
+- Infer credit card numbers
+- Infer credit card types
+- Infer mac addresses
