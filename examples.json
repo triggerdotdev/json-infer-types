@@ -18,6 +18,8 @@
     "time": "00:00:00.000Z",
     "unix": "1596597629980",
     "uri": "https://www.example.com/foo#bar",
+    "uriImage": "https://i.imgur.com/Jb0DYdR.jpeg",
+    "urlJson": "https://raw.githubusercontent.com/jsonhero-io/json-infer-types/main/examples.json",
     "email": "eallam@example.com",
     "currency-iso4217": "USD",
     "currency-english": "Euro",
