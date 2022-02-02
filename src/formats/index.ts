@@ -18,6 +18,7 @@ import { inferEmoji, JSONEmojiFormat } from "./emoji";
 import { inferSemver, JSONSemverFormat } from "./semver";
 import { inferFirestoreTimestamp, JSONFirestoreTimestampFormat } from "./firestoreTimestamp";
 import { inferJWT, JSONJWTStringFormat } from "./jwt";
+import { inferColor, JSONColorFormat } from "./color";
 
 export {
   JSONHostnameFormat,
@@ -38,6 +39,7 @@ export {
   JSONEmojiFormat,
   JSONSemverFormat,
   JSONJWTStringFormat,
+  JSONColorFormat,
 };
 
 export type JSONStringFormat =
@@ -58,7 +60,8 @@ export type JSONStringFormat =
   | JSONJSONPointerFormat
   | JSONEmojiFormat
   | JSONSemverFormat
-  | JSONJWTStringFormat;
+  | JSONJWTStringFormat
+  | JSONColorFormat;
 
 const formats = [
   inferDatetime,
@@ -79,6 +82,7 @@ const formats = [
   inferEmoji,
   inferSemver,
   inferJWT,
+  inferColor,
 ];
 
 export function inferFormat(value: string): JSONStringFormat | undefined {

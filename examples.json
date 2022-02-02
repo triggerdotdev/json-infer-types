@@ -42,6 +42,9 @@
     "json5": "{foo:1,}",
     "jsonPointer": "/foo/bar",
     "emoji": "🤔",
+    "colorHex": "#ff0000",
+    "colorHsl": "hsl(0, 100%, 50%)",
+    "colorRgb": "rgb(255, 0, 0)",
     "semver": "1.2.3",
     "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.sruoLZNJ59anK67z25t80L62OXDerSiAhWerW-usZLQ"
   },

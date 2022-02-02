@@ -247,34 +247,37 @@ The following table illustrates the results of different email strings
 
 The following table illustrates the rest of the formats JSON Infer Types supports
 
-| Example Strings                           | Name        | Variant   |
-| ----------------------------------------- | ----------- | --------- |
-| `"USD"`, `"BTC"`                          | currency    | iso4217   |
-| `"United States dollar"`, `"Euro"`        | currency    | english   |
-| `"ETH"`, `"LTC"`                          | currency    | crypto    |
-| `'$'`, `'£'`, `'€'`, `'¥'`                | currency    | symbol    |
-| `"USA"`, `"MMR"`                          | country     | iso3166-3 |
-| `"US"`, `"GB"`, `"JP"`                    | country     | iso3166-2 |
-| `".com"`, `".co.uk"`, `".biz"`            | tld         |           |
-| `"192.168.0.1"`, `"172.16.0.0"`           | ip          | v4        |
-| `"2001:db8:1234::1"`                      | ip          | v6        |
-| `"en"`, `"ab"`, `"es"`                    | language    | iso693-1  |
-| `"eng"`, `"eus"`, `"zul"`                 | language    | iso693-2  |
-| `"Arabic"`, `"Welsh"`, `"Russian"`        | language    | english   |
-| `"dansk"`, `"Español"`                    | language    | native    |
-| `"+1 (684) 633-5115"`, `"+49 30 83050"`   | phoneNumber | e.164     |
-| `"4677658f-8865-47db-afb0-908e25246348"`  | uuid        | v4        |
-| `"cfa649f0-650b-11ec-acb3-03462fc79f5d"`  | uuid        | v1        |
-| `"bde4a7b9-5793-5a1f-b378-211205b15898"`  | uuid        | v5        |
-| `"foo.example.com"`, `"localhost"`        | hostname    | rfc1123   |
-| `"exa_mple.com"`                          | hostname    | rfc5890   |
-| `"544B"`, `"1.0MB"`, `"377K"`, `"1.87GB"` | filesize    | human     |
-| `'{ "foo": 1 }'`                          | json        | ecma262   |
-| `'{ foo: 1, }'`                           | json        | json5     |
-| `"/foo/bar"`, `"/foo/-/bar"`              | jsonPointer | rfc6901   |
-| `"0/foo/bar"`, `"2/0/baz/1/zip"`          | jsonPointer | relative  |
-| `"😄"`, `"🤪👨🏽‍🚀"`, `"👩‍👩‍👧‍👧"`                  | emoji       |           |
-| `"1.11.0"`, `"0.0.1"`, `"1.0.0-alpha.1"`  | semver      |           |
+| Example Strings                                      | Name        | Variant   |
+| ---------------------------------------------------- | ----------- | --------- |
+| `"USD"`, `"BTC"`                                     | currency    | iso4217   |
+| `"United States dollar"`, `"Euro"`                   | currency    | english   |
+| `"ETH"`, `"LTC"`                                     | currency    | crypto    |
+| `'$'`, `'£'`, `'€'`, `'¥'`                           | currency    | symbol    |
+| `"USA"`, `"MMR"`                                     | country     | iso3166-3 |
+| `"US"`, `"GB"`, `"JP"`                               | country     | iso3166-2 |
+| `".com"`, `".co.uk"`, `".biz"`                       | tld         |           |
+| `"192.168.0.1"`, `"172.16.0.0"`                      | ip          | v4        |
+| `"2001:db8:1234::1"`                                 | ip          | v6        |
+| `"en"`, `"ab"`, `"es"`                               | language    | iso693-1  |
+| `"eng"`, `"eus"`, `"zul"`                            | language    | iso693-2  |
+| `"Arabic"`, `"Welsh"`, `"Russian"`                   | language    | english   |
+| `"dansk"`, `"Español"`                               | language    | native    |
+| `"+1 (684) 633-5115"`, `"+49 30 83050"`              | phoneNumber | e.164     |
+| `"4677658f-8865-47db-afb0-908e25246348"`             | uuid        | v4        |
+| `"cfa649f0-650b-11ec-acb3-03462fc79f5d"`             | uuid        | v1        |
+| `"bde4a7b9-5793-5a1f-b378-211205b15898"`             | uuid        | v5        |
+| `"foo.example.com"`, `"localhost"`                   | hostname    | rfc1123   |
+| `"exa_mple.com"`                                     | hostname    | rfc5890   |
+| `"544B"`, `"1.0MB"`, `"377K"`, `"1.87GB"`            | filesize    | human     |
+| `'{ "foo": 1 }'`                                     | json        | ecma262   |
+| `'{ foo: 1, }'`                                      | json        | json5     |
+| `"/foo/bar"`, `"/foo/-/bar"`                         | jsonPointer | rfc6901   |
+| `"0/foo/bar"`, `"2/0/baz/1/zip"`                     | jsonPointer | relative  |
+| `"😄"`, `"🤪👨🏽‍🚀"`, `"👩‍👩‍👧‍👧"`                             | emoji       |           |
+| `"1.11.0"`, `"0.0.1"`, `"1.0.0-alpha.1"`             | semver      |           |
+| `"#ff0000"`, `"#D47DB9"`                             | color       | hex       |
+| `"rgb(255, 255, 255)"`, `"rgb(255, 255, 255,.5)"`    | color       | rgb       |
+| `"hsl(100, 100%, 50%)"`, `"hsl(235, 100%, 50%, .5)"` | color       | hsl       |
 
 ## Object Formats
 

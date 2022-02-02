@@ -624,3 +624,52 @@ describe("jwt", () => {
     });
   });
 });
+
+describe("colors", () => {
+  test.each(["#D47DB9", "#14C3FF", "#ff9933", "#fff"])(
+    "%p should be inferred as a color hex",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        value,
+        format: {
+          name: "color",
+          variant: "hex",
+        },
+      });
+    },
+  );
+
+  test.each([
+    "rgb(255, 255, 255)",
+    "rgb(255, 255, 255,.5)",
+    "rgba(255, 255, 255,.5)",
+    "rgb(255 255 255)",
+    "rgb(255 255 255 / .5)",
+  ])("%p should be inferred as a color rgb", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      value,
+      format: {
+        name: "color",
+        variant: "rgb",
+      },
+    });
+  });
+
+  test.each([
+    "hsl(100, 100%, 50%)",
+    "hsl(235, 100%, 50%, .5)",
+    "hsl(235 100% 50%)",
+    "hsl(235 100% 50% / .5)",
+  ])("%p should be inferred as a color rgb", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      value,
+      format: {
+        name: "color",
+        variant: "hsl",
+      },
+    });
+  });
+});
