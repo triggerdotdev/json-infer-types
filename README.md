@@ -14,6 +14,7 @@
   - [Date/Time strings](#datetime-strings)
   - [URI strings](#uri-strings)
   - [Email address strings](#email-address-strings)
+  - [JWT Strings](#jwt-strings)
   - [Other formats](#other-formats)
 - [Object Formats](#object-formats)
   - [Firestore Timestamps](#firestore-timestamps)
@@ -242,6 +243,28 @@ The following table illustrates the results of different email strings
 | `"foo@example.accountants"`                      | rfc5321 |
 | `"Example Name <example@example.com>"`           | rfc5322 |
 | `"Example S. Name <example.s.name@example.com>"` | rfc5322 |
+
+### JWT Strings
+
+Strings that contain JWT tokens will have the `jwt` format
+
+```javascript
+inferType(
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.sruoLZNJ59anK67z25t80L62OXDerSiAhWerW-usZLQ",
+);
+```
+
+Will result in
+
+```json
+{
+  "name": "string",
+  "value": "...",
+  "format": {
+    "name": "jwt"
+  }
+}
+```
 
 ### Other formats
 
