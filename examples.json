@@ -46,7 +46,12 @@
     "colorHsl": "hsl(0, 100%, 50%)",
     "colorRgb": "rgb(255, 0, 0)",
     "semver": "1.2.3",
-    "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.sruoLZNJ59anK67z25t80L62OXDerSiAhWerW-usZLQ"
+    "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.sruoLZNJ59anK67z25t80L62OXDerSiAhWerW-usZLQ",
+    "creditCardVisa": "4485 4282 5965 8366",
+    "creditCardMastercard": "5291 1609 8381 3402",
+    "creditCardAmex": "375092442988287",
+    "creditCardDiscover": "6011150635208157",
+    "creditCardDinersClub": "30054894306803"
   },
   "formattedObjects": {
     "firestoreTimestamp": {

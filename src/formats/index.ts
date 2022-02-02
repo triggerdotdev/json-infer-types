@@ -19,6 +19,7 @@ import { inferSemver, JSONSemverFormat } from "./semver";
 import { inferFirestoreTimestamp, JSONFirestoreTimestampFormat } from "./firestoreTimestamp";
 import { inferJWT, JSONJWTStringFormat } from "./jwt";
 import { inferColor, JSONColorFormat } from "./color";
+import { inferCreditCard, JSONCreditCardFormat } from "./creditCard";
 
 export {
   JSONHostnameFormat,
@@ -61,7 +62,8 @@ export type JSONStringFormat =
   | JSONEmojiFormat
   | JSONSemverFormat
   | JSONJWTStringFormat
-  | JSONColorFormat;
+  | JSONColorFormat
+  | JSONCreditCardFormat;
 
 const formats = [
   inferDatetime,
@@ -83,6 +85,7 @@ const formats = [
   inferSemver,
   inferJWT,
   inferColor,
+  inferCreditCard,
 ];
 
 export function inferFormat(value: string): JSONStringFormat | undefined {

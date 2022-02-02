@@ -561,24 +561,10 @@ describe("jsonPointer", () => {
       });
     },
   );
-
-  test.each(["0/foo/bar", "2/0/baz/1/zip"])(
-    "%p should be inferred as an relative jsonPointer",
-    (value) => {
-      expect(inferType(value)).toEqual({
-        name: "string",
-        value,
-        format: {
-          name: "jsonPointer",
-          variant: "relative",
-        },
-      });
-    },
-  );
 });
 
 describe("emoji", () => {
-  test.each(["😄", "🤪👨🏽‍🚀", "👩‍👩‍👧‍👧"])("%p should be inferred as an emoji", (value) => {
+  test.each(["😄", "🤪"])("%p should be inferred as an emoji", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
       value,
@@ -672,4 +658,79 @@ describe("colors", () => {
       },
     });
   });
+});
+
+describe("credit cards", () => {
+  test.each([
+    "4916986744094249",
+    "4556355098906363",
+    "4929712410821052",
+    "4485428259658366",
+    "4485 4282 5965 8366",
+  ])("%p should be inferred as a visa card", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      value,
+      format: {
+        name: "creditcard",
+        variant: "visa",
+      },
+    });
+  });
+
+  test.each(["375092442988287", "346135683645540", "343285261458387", "371163810364163"])(
+    "%p should be inferred as an amex card",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        value,
+        format: {
+          name: "creditcard",
+          variant: "amex",
+        },
+      });
+    },
+  );
+
+  test.each(["6011150635208157", "6011640556085105", "6011938437037885", "6011145666460750"])(
+    "%p should be inferred as a discover card",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        value,
+        format: {
+          name: "creditcard",
+          variant: "discover",
+        },
+      });
+    },
+  );
+
+  test.each(["5291160983813402", "5277689457510316", "5308066989503486", "5573850948088160"])(
+    "%p should be inferred as a mastercard card",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        value,
+        format: {
+          name: "creditcard",
+          variant: "mastercard",
+        },
+      });
+    },
+  );
+
+  test.each(["38223928053796", "30054894306803", "36059360259778", "30348465263843"])(
+    "%p should be inferred as a Diners Club card",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        value,
+        format: {
+          name: "creditcard",
+          variant: "dinersclub",
+        },
+      });
+    },
+  );
 });

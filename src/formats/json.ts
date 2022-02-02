@@ -7,21 +7,27 @@ export type JSONJSONFormat = {
 
 export function inferJson(value: string): JSONJSONFormat | undefined {
   try {
-    JSON.parse(value);
-    return {
-      name: "json",
-      variant: "ecma262",
-    };
+    const parsedValue = JSON.parse(value);
+
+    if (typeof parsedValue === "object") {
+      return {
+        name: "json",
+        variant: "ecma262",
+      };
+    }
   } catch {
     // Ignore
   }
 
   try {
-    JSON5.parse(value);
-    return {
-      name: "json",
-      variant: "json5",
-    };
+    const parsedValue = JSON5.parse(value);
+
+    if (typeof parsedValue === "object") {
+      return {
+        name: "json",
+        variant: "json5",
+      };
+    }
   } catch {
     // Ignore
   }

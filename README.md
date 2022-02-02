@@ -15,10 +15,10 @@
   - [URI strings](#uri-strings)
   - [Email address strings](#email-address-strings)
   - [JWT Strings](#jwt-strings)
+  - [Credit Card Numbers](#credit-card-numbers)
   - [Other formats](#other-formats)
 - [Object Formats](#object-formats)
   - [Firestore Timestamps](#firestore-timestamps)
-- [Roadmap](#roadmap)
 
 ## 🚀 Features
 
@@ -266,6 +266,38 @@ Will result in
 }
 ```
 
+### Credit Card Numbers
+
+Strings that contain valid credit card numbers will be inferred with the `creditcard` format:
+
+```javascript
+inferType("4485428259658366");
+```
+
+Will result in
+
+```json
+{
+  "name": "string",
+  "value": "4485428259658366",
+  "format": {
+    "name": "creditcard",
+    "variant": "visa"
+  }
+}
+```
+
+The following table illustrates the results of different credit card number strings
+
+| String                  | Variant    |
+| ----------------------- | ---------- |
+| `"4485 4282 5965 8366"` | visa       |
+| `"4485428259658366"`    | visa       |
+| `"375092442988287"`     | amex       |
+| `"6011150635208157"`    | discover   |
+| `"5291160983813402"`    | mastercard |
+| `"38223928053796"`      | dinersclub |
+
 ### Other formats
 
 The following table illustrates the rest of the formats JSON Infer Types supports
@@ -295,7 +327,6 @@ The following table illustrates the rest of the formats JSON Infer Types support
 | `'{ "foo": 1 }'`                                     | json        | ecma262   |
 | `'{ foo: 1, }'`                                      | json        | json5     |
 | `"/foo/bar"`, `"/foo/-/bar"`                         | jsonPointer | rfc6901   |
-| `"0/foo/bar"`, `"2/0/baz/1/zip"`                     | jsonPointer | relative  |
 | `"😄"`, `"🤪👨🏽‍🚀"`, `"👩‍👩‍👧‍👧"`                             | emoji       |           |
 | `"1.11.0"`, `"0.0.1"`, `"1.0.0-alpha.1"`             | semver      |           |
 | `"#ff0000"`, `"#D47DB9"`                             | color       | hex       |
@@ -333,9 +364,3 @@ Inferring this object will result in the following inferred type:
 ```
 
 Please feel free to request additional formats by opening a [Github issue](https://github.com/jsonhero-io/json-infer-types/issues)
-
-## Roadmap
-
-- Infer credit card numbers
-- Infer credit card types
-- Infer mac addresses
