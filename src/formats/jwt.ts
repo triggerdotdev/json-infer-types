@@ -1,16 +1,20 @@
-import jwt from "jsonwebtoken";
+import jwtDecode from "jwt-decode";
 
 export type JSONJWTStringFormat = {
   name: "jwt";
 };
 
 export function inferJWT(value: string): JSONJWTStringFormat | undefined {
-  const token = jwt.decode(value);
+  try {
+    const token = jwtDecode(value);
 
-  if (token) {
-    return {
-      name: "jwt",
-    };
+    if (token) {
+      return {
+        name: "jwt",
+      };
+    }
+  } catch {
+    // ignore
   }
 
   return undefined;
