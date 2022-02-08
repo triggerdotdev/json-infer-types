@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2019",
     "preserveConstEnums": true,
     "outDir": "./lib",
     "declaration": true,
-    "allowJs": true,
+    "allowJs": false,
     "strict": true,
     "esModuleInterop": true
   },
