@@ -1,5 +1,3 @@
-import { URL } from "universal-url";
-
 export type JSONURIFormat = {
   name: "uri";
   contentType?: string;
