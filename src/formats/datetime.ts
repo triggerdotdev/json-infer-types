@@ -1,7 +1,10 @@
+type Rfc3339Extensions = Array<"timezone" | "calendar"> | undefined;
+
 export type JSONDateTimeFormat = {
   name: "datetime";
   parts: "datetime" | "date" | "time";
   variant: "rfc2822" | "rfc3339";
+  extensions?: Rfc3339Extensions;
 };
 
 export function inferDatetime(value: string): JSONDateTimeFormat | undefined {
@@ -21,33 +24,37 @@ export function inferDatetime(value: string): JSONDateTimeFormat | undefined {
 }
 
 const rfc3339WithYmd =
-  /^([+-]\d{6}|\d{4})(?:-?(\d\d)(?:-?(\d\d))?)?(?:[T\s](\d\d)(?::?(\d\d)(?::?(\d\d)(?:[.,](\d{1,30}))?)?)?(?:(Z?)|([+-]\d\d)(?::?(\d\d))?))?$/;
+  /^([+-]\d{6}|\d{4})(?:-?(\d\d)(?:-?(\d\d))?)?(?:[T\s](\d\d)(?::?(\d\d)(?::?(\d\d)(?:[.,](\d{1,30}))?)?)?(?:(Z?)|([+-]\d\d)(?::?(\d\d))?))?(?:\[([A-Za-z/_-]+)\])?(?:\[(u-ca=(?:buddhist|chinese|coptic|dangi|ethioaa|ethiopic|gregory|hebrew|indian|islamic|islamic-umalqura|islamic-tbla|islamic-civil|islamic-rgsa|islamicc|iso8601|japanese|persian|roc))\])?$/;
 
 const rfc3339WithWeekIndex =
-  /^(\d{4})-?W(\d\d)(?:-?(\d))?(?:[T\s](\d\d)(?::?(\d\d)(?::?(\d\d)(?:[.,](\d{1,30}))?)?)?(?:(Z?)|([+-]\d\d)(?::?(\d\d))?))?$/;
+  /^(\d{4})-?W(\d\d)(?:-?(\d))?(?:[T\s](\d\d)(?::?(\d\d)(?::?(\d\d)(?:[.,](\d{1,30}))?)?)?(?:(Z?)|([+-]\d\d)(?::?(\d\d))?))?(?:\[([A-Za-z/_-]+)\])?(?:\[(u-ca=(?:buddhist|chinese|coptic|dangi|ethioaa|ethiopic|gregory|hebrew|indian|islamic|islamic-umalqura|islamic-tbla|islamic-civil|islamic-rgsa|islamicc|iso8601|japanese|persian|roc))\])?$/;
 
 const rfc3339WithOrdinal =
-  /^(\d{4})-?(\d{3})?(?:[T\s](\d\d)(?::?(\d\d)(?::?(\d\d)(?:[.,](\d{1,30}))?)?)?(?:(Z?)|([+-]\d\d)(?::?(\d\d))?))?$/;
+  /^(\d{4})-?(\d{3})?(?:[T\s](\d\d)(?::?(\d\d)(?::?(\d\d)(?:[.,](\d{1,30}))?)?)?(?:(Z?)|([+-]\d\d)(?::?(\d\d))?))?(?:\[([A-Za-z/_-]+)\])?(?:\[(u-ca=(?:buddhist|chinese|coptic|dangi|ethioaa|ethiopic|gregory|hebrew|indian|islamic|islamic-umalqura|islamic-tbla|islamic-civil|islamic-rgsa|islamicc|iso8601|japanese|persian|roc))\])?$/;
 
 const rfc3339TimeOnly =
-  /^(?:(\d\d)(?::?(\d\d)(?::?(\d\d)(?:[.,](\d{1,30}))?)?)?(?:(Z?)|([+-]\d\d)(?::?(\d\d))?))?$/;
+  /^(?:(\d\d)(?::?(\d\d)(?::?(\d\d)(?:[.,](\d{1,30}))?)?)?(?:(Z?)|([+-]\d\d)(?::?(\d\d))?))?(?:\[([A-Za-z/_-]+)\])?(?:\[(u-ca=(?:buddhist|chinese|coptic|dangi|ethioaa|ethiopic|gregory|hebrew|indian|islamic|islamic-umalqura|islamic-tbla|islamic-civil|islamic-rgsa|islamicc|iso8601|japanese|persian|roc))\])?$/;
 
 const rfc3339 = [
   {
     matches: rfc3339WithYmd,
     parts: rfc3339Parts,
+    extensions: rfc3339Extensions(11, 12),
   },
   {
     matches: rfc3339WithWeekIndex,
     parts: rfc3339Parts,
+    extensions: rfc3339Extensions(11, 12),
   },
   {
     matches: rfc3339WithOrdinal,
     parts: rfc3339WithOrdinalParts,
+    extensions: rfc3339Extensions(10, 11),
   },
   {
     matches: rfc3339TimeOnly,
     parts: () => <const>"time",
+    extensions: rfc3339Extensions(8, 9),
   },
 ];
 
@@ -57,6 +64,7 @@ function inferRFC3339(value: string): JSONDateTimeFormat | undefined {
       return {
         matches: rfc.matches.exec(value),
         parts: rfc.parts,
+        extensions: rfc.extensions,
       };
     })
     .filter((rfc) => rfc.matches !== null && rfc.matches.some((i) => i));
@@ -72,6 +80,8 @@ function inferRFC3339(value: string): JSONDateTimeFormat | undefined {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       parts: rfc3339BestMatch.parts(rfc3339BestMatch.matches!),
       variant: "rfc3339",
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      extensions: rfc3339BestMatch.extensions(rfc3339BestMatch.matches!),
     };
   }
 
@@ -90,6 +100,25 @@ function rfc3339Parts(match: RegExpMatchArray): "datetime" | "date" {
   }
 
   return "date";
+}
+
+function rfc3339Extensions(
+  timezoneIndex = 11,
+  calendarIndex = 12,
+): (match: RegExpMatchArray) => Rfc3339Extensions {
+  return (match: RegExpMatchArray): Rfc3339Extensions => {
+    const extensions: Array<"timezone" | "calendar"> = [];
+
+    if (match[timezoneIndex] !== undefined) {
+      extensions.push("timezone");
+    }
+
+    if (match[calendarIndex] !== undefined) {
+      extensions.push("calendar");
+    }
+
+    return extensions.length > 0 ? extensions : undefined;
+  };
 }
 
 function rfc3339WithOrdinalParts(match: RegExpMatchArray): "datetime" | "date" {

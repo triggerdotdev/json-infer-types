@@ -157,6 +157,43 @@ The following table illustrates the results of different Date/Time strings
 | `"Mon, 02 Jan 2017 06:00:00 -0800"` | rfc2822 | datetime |
 | `"Mon, 02 Jan 2017 06:00:00 PST"`   | rfc2822 | datetime |
 
+Timezone and Calendar extensions for rfc3339 date/times are also detected:
+
+```js
+inferType("2022-02-28T11:06:00.092121729+08:00[Asia/Shanghai][u-ca=chinese]");
+```
+
+Will result in
+
+```json
+{
+  "name": "string",
+  "value": "2022-02-28T11:06:00.092121729+08:00[Asia/Shanghai][u-ca=chinese]",
+  "format": {
+    "name": "datetime",
+    "parts": "datetime",
+    "variant": "rfc3339",
+    "extensions": ["timezone", "calendar"]
+  }
+}
+```
+
+This is useful for knowing when you can use `Temporal.ZonedDateTime` in the new [Temporal](https://tc39.es/proposal-temporal/docs/index.html) ECMAScript proposal:
+
+```js
+const inferredType = inferType("2022-02-28T11:06:00.092121729+08:00[Asia/Shanghai][u-ca=chinese]");
+
+if (
+  inferredType.name === "string" &&
+  inferredType.format.name === "datetime" &&
+  inferredType.format.variant === "rfc3339" &&
+  inferredType.format.extensions.includes("timezone")
+) {
+  const zonedDateTime = Temporal.ZonedDateTime.from(inferredType.value);
+  // Temporal.ZonedDateTime <2022-02-28T11:06:00.092121729+08:00[Asia/Shanghai][u-ca=chinese]>
+}
+```
+
 JSON Infer Types also supports unix epoch timestamps
 
 ```js

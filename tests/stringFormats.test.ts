@@ -27,6 +27,46 @@ describe("rfc3339", () => {
     });
   });
 
+  test.each([
+    "2007-12-03T10:15:30+01:00[Europe/Paris]",
+    "2016-05-25T09:08:34.123[America/North_Dakota/Beulah]",
+    "2016-W21-3T09:24:15.123Z[America/Phoenix]",
+    "1983-10-14T13:30Z[Europe/Isle_of_Man]",
+    "2022-02-28T11:06:00.092121729+08:00[Asia/Shanghai]",
+  ])("%p should be inferred as an rfc3339 datetime with timezone extension", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      value,
+      format: {
+        name: "datetime",
+        parts: "datetime",
+        variant: "rfc3339",
+        extensions: ["timezone"],
+      },
+    });
+  });
+
+  test.each([
+    "2007-12-03T10:15:30+01:00[Europe/Paris][u-ca=hebrew]",
+    "2016-05-25T09:08:34.123[America/North_Dakota/Beulah][u-ca=iso8601]",
+    "2016-W21-3T09:24:15.123Z[America/Phoenix][u-ca=buddhist]",
+    "1983-10-14T13:30Z[Europe/Isle_of_Man][u-ca=japanese]",
+  ])(
+    "%p should be inferred as an rfc3339 datetime with timezone and calendar extension",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        value,
+        format: {
+          name: "datetime",
+          parts: "datetime",
+          variant: "rfc3339",
+          extensions: ["timezone", "calendar"],
+        },
+      });
+    },
+  );
+
   test.each(["2016-05", "2016-05-25", "+002016-05-25", "2016-W21", "2016-W21-3", "2016-200"])(
     "%p should be inferred as an rfc3339 date",
     (value) => {
@@ -42,6 +82,26 @@ describe("rfc3339", () => {
     },
   );
 
+  test.each([
+    "2016-05[Europe/Paris][u-ca=hebrew]",
+    "2016-05-25[Europe/Isle_of_Man][u-ca=japanese]",
+    "+002016-05-25[America/Phoenix][u-ca=buddhist]",
+    "2016-W21[America/Phoenix][u-ca=buddhist]",
+    "2016-W21-3[America/Phoenix][u-ca=buddhist]",
+    "2016-200[America/Phoenix][u-ca=buddhist]",
+  ])("%p should be inferred as an rfc3339 date with timezone and calendar extensions", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      value,
+      format: {
+        name: "datetime",
+        parts: "date",
+        variant: "rfc3339",
+        extensions: ["timezone", "calendar"],
+      },
+    });
+  });
+
   test.each(["09:24:15.123Z", "09:24:15", "09:24"])(
     "%p should be inferred as an rfc3339 time",
     (value) => {
@@ -56,6 +116,23 @@ describe("rfc3339", () => {
       });
     },
   );
+
+  test.each([
+    "09:24:15.123Z[Europe/Isle_of_Man][u-ca=japanese]",
+    "09:24:15[America/Phoenix][u-ca=buddhist]",
+    "09:24[Europe/Paris][u-ca=hebrew]",
+  ])("%p should be inferred as an rfc3339 time with timezone and calendar extensions", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "string",
+      value,
+      format: {
+        name: "datetime",
+        parts: "time",
+        variant: "rfc3339",
+        extensions: ["timezone", "calendar"],
+      },
+    });
+  });
 });
 
 describe("rfc2822", () => {
