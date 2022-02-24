@@ -14,6 +14,7 @@
   ],
   "formattedStrings": {
     "datetime": "2019-01-01 00:00:00.000Z",
+    "zonedDateTime": "2016-05-25T09:08:34.123[America/North_Dakota/Beulah][u-ca=iso8601]",
     "date": "2019-01-01",
     "time": "00:00:00.000Z",
     "unix": "1596597629980",
