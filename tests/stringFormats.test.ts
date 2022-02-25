@@ -813,10 +813,13 @@ describe("credit cards", () => {
 });
 
 describe("without format", () => {
-  test.each(["46"])("%p should be inferred as having no format", (value) => {
-    expect(inferType(value)).toEqual({
-      name: "string",
-      value,
-    });
-  });
+  test.each(["46", "2244994945", "1212092628029698048"])(
+    "%p should be inferred as having no format",
+    (value) => {
+      expect(inferType(value)).toEqual({
+        name: "string",
+        value,
+      });
+    },
+  );
 });
