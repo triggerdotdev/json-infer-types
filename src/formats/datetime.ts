@@ -58,6 +58,16 @@ const rfc3339 = [
   },
 ];
 
+function matchFilter(matches: RegExpMatchArray | null): boolean {
+  if (!matches) {
+    return false;
+  }
+
+  const truthyMatches = matches.filter((match) => !!match);
+
+  return truthyMatches.length > 2;
+}
+
 function inferRFC3339(value: string): JSONDateTimeFormat | undefined {
   const rfc3339Matches = rfc3339
     .map((rfc) => {
@@ -67,7 +77,7 @@ function inferRFC3339(value: string): JSONDateTimeFormat | undefined {
         extensions: rfc.extensions,
       };
     })
-    .filter((rfc) => rfc.matches !== null && rfc.matches.some((i) => i));
+    .filter((rfc) => matchFilter(rfc.matches));
 
   const rfc3339BestMatch = rfc3339Matches.sort(
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
