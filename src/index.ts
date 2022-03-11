@@ -35,8 +35,8 @@ export {
 } from "./@types";
 
 export function inferType(value: unknown): JSONValueType {
-  if (value === null) {
-    return { name: "null", value };
+  if (value == null) {
+    return { name: "null", value: null };
   }
 
   if (typeof value === "boolean") {
@@ -51,14 +51,6 @@ export function inferType(value: unknown): JSONValueType {
     }
   }
 
-  if (typeof value === "string") {
-    return {
-      name: "string",
-      value,
-      format: inferFormat(value),
-    };
-  }
-
   if (typeof value === "object") {
     if (Array.isArray(value)) {
       return {
@@ -71,6 +63,14 @@ export function inferType(value: unknown): JSONValueType {
       name: "object",
       format: inferObjectFormat(value),
       value,
+    };
+  }
+
+  if (typeof value === "string") {
+    return {
+      name: "string",
+      value,
+      format: inferFormat(value),
     };
   }
 
