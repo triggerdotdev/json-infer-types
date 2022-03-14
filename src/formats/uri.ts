@@ -96,6 +96,10 @@ export function inferUri(value: string): JSONURIFormat | undefined {
   try {
     const url = new URL(value);
 
+    if (url.hostname === "") {
+      return undefined;
+    }
+
     // Get mimetype from extension
     const ext = url.pathname.split(".").pop();
     const mimeType = lookupMimeType(ext);

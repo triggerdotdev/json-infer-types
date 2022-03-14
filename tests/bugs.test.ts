@@ -9,3 +9,15 @@ test("https://www.mattaitken.com is a string with format of uri", () => {
     },
   });
 });
+
+test(`"creditCardNumber:NullValue,\ncreditCardExpirationMonth:NullValue,\ncreditCardExpirationYear:NullValue,\ncardSecurityCode:NullValue,\ncreditCardState:NullValue,\n" is a string with no format`, () => {
+  expect(
+    inferType(
+      "creditCardNumber:NullValue,\ncreditCardExpirationMonth:NullValue,\ncreditCardExpirationYear:NullValue,\ncardSecurityCode:NullValue,\ncreditCardState:NullValue,\n",
+    ),
+  ).toEqual({
+    name: "string",
+    value:
+      "creditCardNumber:NullValue,\ncreditCardExpirationMonth:NullValue,\ncreditCardExpirationYear:NullValue,\ncardSecurityCode:NullValue,\ncreditCardState:NullValue,\n",
+  });
+});
