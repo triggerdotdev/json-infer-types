@@ -448,6 +448,7 @@ describe("uris", () => {
     "https://www.example.com/foo#bar",
     "file://host/path",
     "https://goole.com?hello=world",
+    "ipfs://bafybeihzwwtl65z6ftqf5avmg3iv45umxm4hyz6wty4l4pd5eplnz256xa",
   ])("%p should be inferred as a rfc3986 URI", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
@@ -489,6 +490,17 @@ describe("uris", () => {
     expect(inferType("https://www.example.com/foo.png")).toEqual({
       name: "string",
       value: "https://www.example.com/foo.png",
+      format: {
+        name: "uri",
+        contentType: "image/png",
+      },
+    });
+
+    expect(
+      inferType("ipfs://bafybeihzwwtl65z6ftqf5avmg3iv45umxm4hyz6wty4l4pd5eplnz256xa/500.png"),
+    ).toEqual({
+      name: "string",
+      value: "ipfs://bafybeihzwwtl65z6ftqf5avmg3iv45umxm4hyz6wty4l4pd5eplnz256xa/500.png",
       format: {
         name: "uri",
         contentType: "image/png",

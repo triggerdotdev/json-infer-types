@@ -92,11 +92,58 @@ function lookupMimeType(ext?: string): string | undefined {
   return extensionToMimeType[ext];
 }
 
+const supportedProtocols = [
+  "http:",
+  "https:",
+  "ftp:",
+  "ftps:",
+  "mailto:",
+  "tel:",
+  "sms:",
+  "geo:",
+  "file:",
+  "ipfs:",
+  "data:",
+  "blob:",
+  "chrome:",
+  "chrome-extension:",
+  "magnet:",
+  "bitcoin:",
+  "callto:",
+  "dict:",
+  "dns:",
+  "feed:",
+  "git:",
+  "gtalk:",
+  "imap:",
+  "im:",
+  "info:",
+  "irc:",
+  "ircs:",
+  "irc6:",
+  "itms:",
+  "jabber:",
+  "ldap:",
+  "ldaps:",
+  "maps:",
+  "nfs:",
+  "payto:",
+  "proxy:",
+  "redis:",
+  "s3:",
+  "ssh:",
+  "udp:",
+  "view-source:",
+  "ws:",
+  "wss:",
+  "xmpp:",
+];
+
 export function inferUri(value: string): JSONURIFormat | undefined {
   try {
     const url = new URL(value);
 
-    if (url.hostname === "") {
+    if (url.hostname === "" && !supportedProtocols.includes(url.protocol)) {
       return undefined;
     }
 
