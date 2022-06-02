@@ -21,6 +21,7 @@ import { inferJWT, JSONJWTStringFormat } from "./jwt";
 import { inferColor, JSONColorFormat } from "./color";
 import { inferCreditCard, JSONCreditCardFormat } from "./creditCard";
 import { inferBase64, JSONBase64Format } from "./base64";
+import { inferMAC, JSONMACFormat } from "./mac";
 
 export {
   JSONHostnameFormat,
@@ -42,6 +43,7 @@ export {
   JSONSemverFormat,
   JSONJWTStringFormat,
   JSONColorFormat,
+  JSONMACFormat,
 };
 
 export type JSONStringFormat =
@@ -65,7 +67,8 @@ export type JSONStringFormat =
   | JSONJWTStringFormat
   | JSONColorFormat
   | JSONCreditCardFormat
-  | JSONBase64Format;
+  | JSONBase64Format
+  | JSONMACFormat;
 
 const formats = [
   inferUri,
@@ -89,6 +92,7 @@ const formats = [
   inferColor,
   inferCreditCard,
   inferBase64,
+  inferMAC,
 ];
 
 export function inferFormat(value: string): JSONStringFormat | undefined {
