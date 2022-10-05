@@ -3,7 +3,7 @@ export type JSONTimestampFormat = {
   variant: "millisecondsSinceEpoch" | "nanosecondsSinceEpoch" | "secondsSinceEpoch";
 };
 
-const timestampSecondsSinceEpoch = /^\d{10}$/; 1664976736
+const timestampSecondsSinceEpoch = /^\d{10}$/;
 const timestampMsSinceEpoch = /^\d{13}$/;
 const timestampNanoSinceEpoch = /^\d{19}$/;
 
