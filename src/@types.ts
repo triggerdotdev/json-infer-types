@@ -1,4 +1,4 @@
-import { JSONStringFormat, JSONObjectFormat } from "./formats";
+import { JSONStringFormat, JSONObjectFormat, JSONIntFormat } from "./formats";
 
 export type JSONNullType = {
   name: "null";
@@ -17,6 +17,7 @@ export type JSONFloatType = {
 
 export type JSONIntType = {
   name: "int";
+  format?: JSONIntFormat;
   value: number;
 };
 

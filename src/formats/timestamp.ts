@@ -3,7 +3,7 @@ export type JSONTimestampFormat = {
   variant: "millisecondsSinceEpoch" | "nanosecondsSinceEpoch" | "secondsSinceEpoch";
 };
 
-const timestampSecondsSinceEpoch = /^\d{10}$/;
+const timestampSecondsSinceEpoch = /^\d{10}$/; 1664976736
 const timestampMsSinceEpoch = /^\d{13}$/;
 const timestampNanoSinceEpoch = /^\d{19}$/;
 
@@ -18,7 +18,10 @@ function inRangeOfNow(msSinceEpoch: number): boolean {
   return now >= lowerBound && now <= upperBound;
 }
 
-export function inferTimestamp(value: string): JSONTimestampFormat | undefined {
+export function inferTimestamp(value: string | number): JSONTimestampFormat | undefined {
+  if (typeof value === "number") {
+    value = "" + value
+  }
   if (timestampSecondsSinceEpoch.test(value)) {
     const seconds = parseInt(value);
 

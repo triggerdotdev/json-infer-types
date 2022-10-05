@@ -1,5 +1,5 @@
 import { JSONValueType } from "./@types";
-import { inferFormat, inferObjectFormat } from "./formats";
+import { inferFormat, inferObjectFormat, inferIntFormat } from "./formats";
 
 export { JSONValueType };
 export {
@@ -45,7 +45,11 @@ export function inferType(value: unknown): JSONValueType {
 
   if (typeof value === "number") {
     if (Number.isInteger(value)) {
-      return { name: "int", value };
+      return { 
+        name: "int", 
+        value,
+        format: inferIntFormat(value),
+      };
     } else {
       return { name: "float", value };
     }

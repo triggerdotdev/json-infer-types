@@ -119,3 +119,19 @@ export function inferObjectFormat(value: object): JSONObjectFormat | undefined {
 
   return undefined;
 }
+
+export type JSONIntFormat = JSONTimestampFormat
+
+const intFormats = [inferTimestamp];
+
+export function inferIntFormat(value: number): JSONIntFormat | undefined {
+  for (const [, format] of Object.entries(intFormats)) {
+    const result = format(value);
+
+    if (result) {
+      return result;
+    }
+  }
+
+  return undefined;
+}

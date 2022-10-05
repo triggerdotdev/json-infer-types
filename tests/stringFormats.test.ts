@@ -162,7 +162,7 @@ describe("rfc2822", () => {
 });
 
 describe("timestamps", () => {
-  test.each(["1596597629980", "1640273437757"])(
+  test.each(["1664976736980", "1640273437757"])(
     "%p should be inferred as an timestamp",
     (value) => {
       expect(inferType(value)).toEqual({
@@ -187,7 +187,7 @@ describe("timestamps", () => {
     });
   });
 
-  test.each(["1596597839946364285"])("%p should be inferred as an timestamp", (value) => {
+  test.each(["1664976736946364285"])("%p should be inferred as an timestamp", (value) => {
     expect(inferType(value)).toEqual({
       name: "string",
       value,
