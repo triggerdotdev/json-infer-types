@@ -20,7 +20,7 @@ function inRangeOfNow(msSinceEpoch: number): boolean {
 
 export function inferTimestamp(value: string | number): JSONTimestampFormat | undefined {
   if (typeof value === "number") {
-    value = "" + value
+    return inferTimestamp(`${value}`);
   }
   if (timestampSecondsSinceEpoch.test(value)) {
     const seconds = parseInt(value);
