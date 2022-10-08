@@ -45,8 +45,8 @@ export function inferType(value: unknown): JSONValueType {
 
   if (typeof value === "number") {
     if (Number.isInteger(value)) {
-      return { 
-        name: "int", 
+      return {
+        name: "int",
         value,
         format: inferIntFormat(value),
       };

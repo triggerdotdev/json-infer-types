@@ -120,7 +120,7 @@ export function inferObjectFormat(value: object): JSONObjectFormat | undefined {
   return undefined;
 }
 
-export type JSONIntFormat = JSONTimestampFormat
+export type JSONIntFormat = JSONTimestampFormat;
 
 const intFormats = [inferTimestamp];
 

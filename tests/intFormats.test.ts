@@ -1,19 +1,16 @@
 import { inferType } from "../src";
 
 describe("timestamps", () => {
-  test.each([1664976736123, 1664976736567])(
-    "%p should be inferred as an timestamp",
-    (value) => {
-      expect(inferType(value)).toEqual({
-        name: "int",
-        value,
-        format: {
-          name: "timestamp",
-          variant: "millisecondsSinceEpoch",
-        },
-      });
-    },
-  );
+  test.each([1664976736123, 1664976736567])("%p should be inferred as an timestamp", (value) => {
+    expect(inferType(value)).toEqual({
+      name: "int",
+      value,
+      format: {
+        name: "timestamp",
+        variant: "millisecondsSinceEpoch",
+      },
+    });
+  });
 
   test.each([1664976736, 1664976736])("%p should be inferred as an timestamp", (value) => {
     expect(inferType(value)).toEqual({
@@ -22,17 +19,6 @@ describe("timestamps", () => {
       format: {
         name: "timestamp",
         variant: "secondsSinceEpoch",
-      },
-    });
-  });
-
-  test.each([1664976736946364285])("%p should be inferred as an timestamp", (value) => {
-    expect(inferType(value)).toEqual({
-      name: "int",
-      value,
-      format: {
-        name: "timestamp",
-        variant: "nanosecondsSinceEpoch",
       },
     });
   });
