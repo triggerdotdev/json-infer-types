@@ -33,9 +33,6 @@
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write && prettier --config .prettierrc 'tests/**/*.ts' --write",
     "format:check": "prettier --config .prettierrc --list-different 'src/**/*.ts'"
   },
-  "engines": {
-    "node": "16"
-  },
   "keywords": [
     "json",
     "types",
