@@ -89,7 +89,9 @@ function lookupMimeType(ext?: string): string | undefined {
     md: "text/markdown",
   };
 
-  return extensionToMimeType[ext];
+  return Object.prototype.hasOwnProperty.call(extensionToMimeType, ext)
+    ? extensionToMimeType[ext]
+    : undefined;
 }
 
 const supportedProtocols = [
