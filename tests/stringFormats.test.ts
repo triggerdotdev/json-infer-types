@@ -444,6 +444,18 @@ describe("phone numbers", () => {
 });
 
 describe("uris", () => {
+  test.each(["__proto__", "constructor", "toString", "hasOwnProperty", "valueOf"])(
+    "%p is not an own MIME extension",
+    (extension) => {
+      const value = `https://www.example.com/file.${extension}`;
+      expect(inferType(value)).toEqual({
+        name: "string",
+        value,
+        format: { name: "uri" },
+      });
+    },
+  );
+
   test.each([
     "https://www.example.com/foo#bar",
     "file://host/path",
